@@ -1,0 +1,567 @@
+NL,Avalon
+NL,Bonavista
+NL,Burin
+NL,Trinity
+NL,Coast of Bays
+NL,Central
+NL,Notre Dame
+NL,Labrador
+NL,Long Range Mountains
+NL,St. John's East
+NL,St. John's South
+NL,Mount Pearl
+PE,Cardigan
+PE,Charlottetown
+PE,Egmont
+PE,Malpeque
+NS,Cape Breton
+NS,Canso
+NS,Central Nova
+NS,Cumberland
+NS,Colchester
+NS,Dartmouth
+NS,Cole Harbour
+NS,Halifax
+NS,Halifax West
+NS,Kings
+NS,Hants
+NS,Sackville
+NS,Preston
+NS,Chezzetcook
+NS,South Shore
+NS,St. Margarets
+NS,Sydney
+NS,Victoria
+NS,West Nova
+NB,Acadie
+NB,Bathurst
+NB,Beauséjour
+NB,Fredericton
+NB,Fundy Royal
+NB,Madawaska
+NB,Restigouche
+NB,Miramichi
+NB,Grand Lake
+NB,Moncton
+NB,Riverview
+NB,Dieppe
+NB,New Brunswick Southwest
+NB,Saint John
+NB,Rothesay
+NB,Tobique
+NB,Mactaquac
+QC,Abitibi
+QC,Baie-James
+QC,Nunavik
+QC,Eeyou
+QC,Abitibi
+QC,Témiscamingue
+QC,Ahuntsic-Cartierville
+QC,Alfred-Pellan
+QC,Argenteuil
+QC,La Petite-Nation
+QC,Avignon
+QC,La Mitis
+QC,Matane
+QC,Matapédia
+QC,Beauce
+QC,Beauport
+QC,Limoilou
+QC,Beauport-Côte-de-Beaupré-Île d'Orléans-Charlevoix
+QC,Bécancour
+QC,Nicolet
+QC,Saurel
+QC,Bellechasse
+QC,Les Etchemins
+QC,Lévis
+QC,Beloeil
+QC,Chambly
+QC,Berthier
+QC,Maskinongé
+QC,Bourassa
+QC,Brome
+QC,Missisquoi
+QC,Brossard
+QC,Saint-Lambert
+QC,Charlesbourg
+QC,Haute-Saint-Charles
+QC,Châteauguay
+QC,Lacolle
+QC,Chicoutimi
+QC,Le Fjord
+QC,Compton
+QC,Stanstead
+QC,Dorval
+QC,Lachine
+QC,LaSalle
+QC,Drummond
+QC,Gaspésie
+QC,Les Îles-de-la-Madeleine
+QC,Gatineau
+QC,Hochelaga
+QC,Honoré-Mercier
+QC,Hull
+QC,Aylmer
+QC,Joliette
+QC,Jonquière
+QC,La Pointe-de-l'Île
+QC,La Prairie
+QC,Lac-Saint-Jean
+QC,Lac-Saint-Louis
+QC,LaSalle
+QC,Émard
+QC,Verdun
+QC,Laurentides
+QC,Labelle
+QC,Laurier
+QC,Sainte-Marie
+QC,Laval
+QC,Les Îles
+QC,Lévis
+QC,Lotbinière
+QC,Longueuil
+QC,Charles-LeMoyne
+QC,Longueuil
+QC,Saint-Hubert
+QC,Louis-Hébert
+QC,Louis-Saint-Laurent
+QC,Manicouagan
+QC,Marc-Aurèle-Fortin
+QC,Mégantic
+QC,L'Érable
+QC,Mirabel
+QC,Montarville
+QC,Montcalm
+QC,Montmagny
+QC,L'Islet
+QC,Kamouraska
+QC,Rivière-du-Loup
+QC,Mont-Royal
+QC,Notre-Dame-de-Grâce
+QC,Westmount
+QC,Outremont
+QC,Papineau
+QC,Pierre-Boucher
+QC,Les Patriotes
+QC,Verchères
+QC,Pierrefonds
+QC,Dollard
+QC,Pontiac
+QC,Portneuf
+QC,Jacques-Cartier
+QC,Québec
+QC,Repentigny
+QC,Richmond
+QC,Arthabaska
+QC,Rimouski-Neigette
+QC,Témiscouata
+QC,Les Basques
+QC,Rivière-des-Mille-Îles
+QC,Rivière-du-Nord
+QC,Rosemont
+QC,La Petite-Patrie
+QC,Saint-Hyacinthe
+QC,Bagot
+QC,Saint-Jean
+QC,Saint-Laurent
+QC,Saint-Léonard
+QC,Saint-Michel
+QC,Saint-Maurice
+QC,Champlain
+QC,Salaberry
+QC,Suroît
+QC,Shefford
+QC,Sherbrooke
+QC,Terrebonne
+QC,Thérèse-De Blainville
+QC,Trois-Rivières
+QC,Vaudreuil
+QC,Soulanges
+QC,Ville-Marie
+QC,Le Sud-Ouest
+QC,Île-des-Soeurs
+QC,Vimy
+ON,Ajax
+ON,Algoma
+ON,Manitoulin
+ON,Kapuskasing
+ON,Aurora
+ON,Oak Ridges
+ON,Richmond Hill
+ON,Barrie
+ON,Innisfil
+ON,Barrie
+ON,Springwater
+ON,Oro-Medonte
+ON,Bay of Quinte
+ON,Beaches
+ON,East York
+ON,Brampton Centre
+ON,Brampton East
+ON,Brampton North
+ON,Brampton South
+ON,Brampton West
+ON,Brantford
+ON,Brant
+ON,Bruce
+ON,Grey
+ON,Owen Sound
+ON,Burlington
+ON,Cambridge
+ON,Carleton
+ON,Chatham-Kent
+ON,Leamington
+ON,Davenport
+ON,Don Valley East
+ON,Don Valley North
+ON,Don Valley West
+ON,Dufferin
+ON,Caledon
+ON,Durham
+ON,Eglinton
+ON,Lawrence
+ON,Elgin
+ON,Middlesex
+ON,London
+ON,Essex
+ON,Etobicoke Centre
+ON,Etobicoke North
+ON,Etobicoke
+ON,Lakeshore
+ON,Flamborough
+ON,Glanbrook
+ON,Glengarry
+ON,Prescott
+ON,Russell
+ON,Guelph
+ON,Haldimand
+ON,Norfolk
+ON,Haliburton
+ON,Kawartha Lakes
+ON,Brock
+ON,Hamilton Centre
+ON,Hamilton East
+ON,Stoney Creek
+ON,Hamilton Mountain
+ON,Hamilton West
+ON,Ancaster
+ON,Dundas
+ON,Hastings
+ON,Lennox and Addington
+ON,Humber River
+ON,Black Creek
+ON,Huron
+ON,Bruce
+ON,Kanata
+ON,Carleton
+ON,Kenora
+ON,King
+ON,Vaughan
+ON,Kingston and the Islands
+ON,Kitchener Centre
+ON,Kitchener South
+ON,Hespeler
+ON,Kitchener
+ON,Conestoga
+ON,Lambton
+ON,Kent
+ON,Middlesex
+ON,Lanark
+ON,Frontenac
+ON,Kingston
+ON,Leeds
+ON,Grenville
+ON,Thousand Islands and Rideau Lakes
+ON,London North Centre
+ON,London West
+ON,London
+ON,Fanshawe
+ON,Markham
+ON,Stouffville
+ON,Markham
+ON,Thornhill
+ON,Markham
+ON,Unionville
+ON,Milton
+ON,Mississauga Centre
+ON,Mississauga East
+ON,Cooksville
+ON,Mississauga
+ON,Erin Mills
+ON,Mississauga
+ON,Lakeshore
+ON,Mississauga
+ON,Malton
+ON,Mississauga
+ON,Streetsville
+ON,Nepean
+ON,Newmarket
+ON,Aurora
+ON,Niagara Centre
+ON,Niagara Falls
+ON,Niagara West
+ON,Nickel Belt
+ON,Nipissing
+ON,Timiskaming
+ON,Northumberland
+ON,Peterborough South
+ON,Oakville
+ON,Oakville North
+ON,Burlington
+ON,Orléans
+ON,Oshawa
+ON,Ottawa Centre
+ON,Ottawa South
+ON,Ottawa West
+ON,Nepean
+ON,Ottawa
+ON,Vanier
+ON,Oxford
+ON,Parkdale
+ON,High Park
+ON,Parry Sound
+ON,Muskoka
+ON,Perth
+ON,Wellington
+ON,Peterborough
+ON,Kawartha
+ON,Pickering
+ON,Uxbridge
+ON,Renfrew
+ON,Nipissing
+ON,Pembroke
+ON,Richmond Hill
+ON,St. Catharines
+ON,Sarnia
+ON,Lambton
+ON,Sault Ste. Marie
+ON,Scarborough Centre
+ON,Scarborough North
+ON,Scarborough Southwest
+ON,Scarborough
+ON,Agincourt
+ON,Scarborough
+ON,Guildwood
+ON,Scarborough
+ON,Rouge Park
+ON,Simcoe North
+ON,Simcoe
+ON,Grey
+ON,Spadina
+ON,Fort York
+ON,Stormont
+ON,Dundas
+ON,South Glengarry
+ON,Sudbury
+ON,Thornhill
+ON,Thunder Bay
+ON,Rainy River
+ON,Thunder Bay
+ON,Superior North
+ON,Timmins
+ON,James Bay
+ON,Toronto Centre
+ON,Toronto
+ON,Danforth
+ON,Toronto
+ON,St. Paul's
+ON,University
+ON,Rosedale
+ON,Vaughan
+ON,Woodbridge
+ON,Waterloo
+ON,Wellington
+ON,Halton Hills
+ON,Whitby
+ON,Willowdale
+ON,Windsor West
+ON,Windsor
+ON,Tecumseh
+ON,York Centre
+ON,York South
+ON,Weston
+ON,York
+ON,Simcoe
+MB,Brandon
+MB,Souris
+MB,Charleswood
+MB,St. James
+MB,Assiniboia
+MB,Headingley
+MB,Churchill
+MB,Keewatinook Aski
+MB,Dauphin
+MB,Swan River
+MB,Neepawa
+MB,Elmwood
+MB,Transcona
+MB,Kildonan
+MB,St. Paul
+MB,Portage
+MB,Lisgar
+MB,Provencher
+MB,Saint Boniface
+MB,Saint Vital
+MB,Selkirk
+MB,Interlake
+MB,Eastman
+MB,Winnipeg Centre
+MB,Winnipeg North
+MB,Winnipeg South
+MB,Winnipeg South Centre
+SK,Battlefords
+SK,Lloydminster
+SK,Carlton Trail
+SK,Eagle Creek
+SK,Cypress Hills
+SK,Grasslands
+SK,Desnethé
+SK,Missinippi
+SK,Churchill River
+SK,Moose Jaw
+SK,Lake Centre
+SK,Lanigan
+SK,Prince Albert
+SK,Regina
+SK,Lewvan
+SK,Regina
+SK,Qu'Appelle
+SK,Regina
+SK,Wascana
+SK,Saskatoon West
+SK,Saskatoon
+SK,Grasswood
+SK,Saskatoon
+SK,University
+SK,Souris
+SK,Moose Mountain
+SK,Yorkton
+SK,Melville
+AB,Banff
+AB,Airdrie
+AB,Battle River
+AB,Crowfoot
+AB,Bow River
+AB,Calgary Centre
+AB,Calgary Confederation
+AB,Calgary Forest Lawn
+AB,Calgary Heritage
+AB,Calgary Midnapore
+AB,Calgary Nose Hill
+AB,Calgary Rocky Ridge
+AB,Calgary Shepard
+AB,Calgary Signal Hill
+AB,Calgary Skyview
+AB,Edmonton Centre
+AB,Edmonton Griesbach
+AB,Edmonton Manning
+AB,Edmonton Mill Woods
+AB,Edmonton Riverbend
+AB,Edmonton Strathcona
+AB,Edmonton West
+AB,Edmonton
+AB,Wetaskiwin
+AB,Foothills
+AB,Fort McMurray
+AB,Cold Lake
+AB,Grande Prairie
+AB,Mackenzie
+AB,Lakeland
+AB,Lethbridge
+AB,Medicine Hat
+AB,Cardston
+AB,Warner
+AB,Peace River
+AB,Westlock
+AB,Red Deer
+AB,Lacombe
+AB,Red Deer
+AB,Mountain View
+AB,St. Albert
+AB,Edmonton
+AB,Sherwood Park
+AB,Fort Saskatchewan
+AB,Sturgeon River
+AB,Parkland
+AB,Yellowhead
+BC,Abbotsford
+BC,Burnaby North
+BC,Seymour
+BC,Burnaby South
+BC,Cariboo
+BC,Prince George
+BC,Central Okanagan
+BC,Similkameen
+BC,Nicola
+BC,Chilliwack
+BC,Hope
+BC,Cloverdale
+BC,Langley City
+BC,Coquitlam
+BC,Port Coquitlam
+BC,Courtenay
+BC,Alberni
+BC,Cowichan
+BC,Malahat
+BC,Langford
+BC,Delta
+BC,Esquimalt
+BC,Saanich
+BC,Sooke
+BC,Fleetwood
+BC,Port Kells
+BC,Kamloops
+BC,Thompson
+BC,Cariboo
+BC,Kelowna
+BC,Lake Country
+BC,Kootenay
+BC,Columbia
+BC,Langley
+BC,Aldergrove
+BC,Mission
+BC,Matsqui
+BC,Fraser Canyon
+BC,Nanaimo
+BC,Ladysmith
+BC,New Westminster
+BC,Burnaby
+BC,North Island
+BC,Powell River
+BC,North Okanagan
+BC,Shuswap
+BC,North Vancouver
+BC,Pitt Meadows
+BC,Maple Ridge
+BC,Port Moody
+BC,Coquitlam
+BC,Prince George
+BC,Peace River
+BC,Northern Rockies
+BC,Richmond Centre
+BC,Saanich
+BC,Gulf Islands
+BC,Skeena
+BC,Bulkley Valley
+BC,South Okanagan
+BC,West Kootenay
+BC,South Surrey
+BC,White Rock
+BC,Steveston
+BC,Richmond East
+BC,Surrey Centre
+BC,Surrey
+BC,Newton
+BC,Vancouver Centre
+BC,Vancouver East
+BC,Vancouver Granville
+BC,Vancouver Kingsway
+BC,Vancouver Quadra
+BC,Vancouver South
+BC,Victoria
+BC,West Vancouver
+BC,Sunshine Coast
+BC,Sea to Sky Country
+YK,Yukon
+NT,Northwest Territories
+N,Nunavut
