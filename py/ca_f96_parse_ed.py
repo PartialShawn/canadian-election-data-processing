@@ -18,9 +18,7 @@
 import csv, json
 
 # Set Constants
-SGC_TO_ALPHA = {
-    '10': 'NL', '11': 'PE', '12': 'NS', '13': 'NB', '24': 'QC', '35': 'ON', '46': 'MB', '47': 'SK', '48': 'AB', '59': 'BC', '60': 'YK', '61': 'NT', '62': 'N'
-} # Provincial/Territory SGC code to 2-letter province code
+
 ED_NAME = 1 # Column 1 is electoral district name
 ED_NUM = 2  # Column 2 is electoral district number
 RIDING_CSV_FIELDNAMES = {'code', 'province', 'en', 'fr'}
