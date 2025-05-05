@@ -42,12 +42,13 @@ last_result_type = ""
 last_ed = ""
 first_result = True
 
-# Process all lines.
+# Process all lines. Skip 2 header lines, skip footnotes (at end).
+# Track if this is the first 
 
 with open('data-source/ca_ge44_preliminary-2025-02-05.tsv', encoding='utf8') as prelim_file:
     table_reader = csv.reader(prelim_file, delimiter='\t')
-    next(table_reader)  # skip the headers
-    next(table_reader)  # skip the headers
+    next(table_reader) # skip the headers
+    next(table_reader)
 
     for candidate in table_reader:
 
@@ -55,19 +56,18 @@ with open('data-source/ca_ge44_preliminary-2025-02-05.tsv', encoding='utf8') as 
             last_result_type = candidate[ED_RESULT_TYPE_EN]
             last_ed = candidate[ED_NUM]
             first_result = True
-        # Skip if a footnote
-        if candidate[0][0] == '*':
-            continue
+        
+        if candidate[0][0] == '*': continue # Skip if a footnote
 
-        sgc_code = candidate[ED_NUM][:2]
+        sgc_code = candidate[ED_NUM][:2] # TODO: remove if results not segmented by province
 
-        if SGC_TO_ALPHA[sgc_code] == 'QC':
+        if SGC_TO_ALPHA[sgc_code] != 'QC':
             ed_name = candidate[ED_NAME_EN]
         else:
-            ed_name = candidate[ED_NAME_FR]
+            ed_name = candidate[ED_NAME_FR] # Use french name if in Quebec
 
-        # Add to dictionary of electoral districts if first result
-        # This will overwrite preliminary results, if present
+        # Add to dictionary of electoral districts if first result.
+        # This will overwrite preliminary results, if present.
         if first_result:
             districts[candidate[ED_NUM]] = []
             first_result = False
