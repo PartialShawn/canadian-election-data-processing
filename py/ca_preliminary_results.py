@@ -38,6 +38,11 @@ ED_TOTAL_BALLOTS = 14
 
 # Initialize variables
 districts = {} # All districts
+last_result_type = ""
+last_ed = ""
+first_result = True
+
+# Process all lines.
 
 with open('data-source/ca_ge44_preliminary-2025-02-05.tsv', encoding='utf8') as prelim_file:
     table_reader = csv.reader(prelim_file, delimiter='\t')
@@ -45,8 +50,15 @@ with open('data-source/ca_ge44_preliminary-2025-02-05.tsv', encoding='utf8') as 
     next(table_reader)  # skip the headers
 
     for candidate in table_reader:
+
+        if candidate[ED_RESULT_TYPE_EN] != last_result_type or candidate[ED_NUM] != last_ed:
+            last_result_type = candidate[ED_RESULT_TYPE_EN]
+            last_ed = candidate[ED_NUM]
+            first_result = True
+        # Skip if a footnote
         if candidate[0][0] == '*':
             continue
+
         sgc_code = candidate[ED_NUM][:2]
 
         if SGC_TO_ALPHA[sgc_code] == 'QC':
@@ -54,9 +66,11 @@ with open('data-source/ca_ge44_preliminary-2025-02-05.tsv', encoding='utf8') as 
         else:
             ed_name = candidate[ED_NAME_FR]
 
-        # Add to dictionary of electoral districts
-        if candidate[ED_NUM] not in districts:
+        # Add to dictionary of electoral districts if first result
+        # This will overwrite preliminary results, if present
+        if first_result:
             districts[candidate[ED_NUM]] = []
+            first_result = False
         districts[candidate[ED_NUM]].append({
             'name_first': candidate[CAN_FIRST],
             'name_middle': candidate[CAN_MIDDLE],
