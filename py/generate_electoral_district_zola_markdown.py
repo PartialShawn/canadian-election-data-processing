@@ -6,16 +6,18 @@
 #
 
 import __init__, json
-PATH_TO_EXPORT_ZOLA = '../votes-count-zola/content/ca/'
+ZOLA_CONTENT_PATH = '../votes-count-zola/content/'
+ELECTIONS_PATH = ZOLA_CONTENT_PATH+'election/'
+DISTRICTS_PATH = ZOLA_CONTENT_PATH+'ca/'
+
 
 # Load preliminary results
 election_results_json = open('data/preliminary_results.json', 'r')
 districts = json.load(election_results_json)
 election_results_json.close()
 
-print(PATH_TO_EXPORT_ZOLA)
 for id,district in districts.items():
-    district_file = open(PATH_TO_EXPORT_ZOLA+id+'.md', 'w')
+    district_file = open(DISTRICTS_PATH+id+'.md', 'w')
     district_file.write(f"""+++
 title = '{id}'
 [extra]
@@ -23,7 +25,13 @@ district_id = '{id}'
 +++
 {id}
 """)
-    
+
+with open(ELECTIONS_PATH+'ge44.md', 'w') as election_file:
+    election_file.write(f"""+++
+title = '44th General Election'
+[extra]
+election_id = 44
+""")
     # print('\n****',id,end=": ")
     # for candidate in district:
     #     "test"
