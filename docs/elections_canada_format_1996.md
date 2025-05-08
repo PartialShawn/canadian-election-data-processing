@@ -4,11 +4,53 @@ F96 is the format for elections results using since 1996 in elections and by-ele
 
 
 
-Table 1: Number of electors and polling stations
-Table 2: Number of electors and polling stations for the 2019, 2015, 2011 and 2008 general elections
-Table 3: Number of ballots cast and voter turnout
-Table 4: Voter turnout for the 2019, 2015, 2011 and 2008 general elections
-Table 5: Distribution of valid votes by voting method
+## Table 1: Number of electors and polling stations
+-Province
+-Population
+-Electors
+-Stationary Polls
+-Mobile Polling Stations
+-Advance Polls
+-Total Polling Stations
+
+## Table 2: Number of electors and polling stations for the 2019, 2015, 2011 and 2008 general elections
+- Province
+- Electors 2021
+- Electors 2019
+- Electors 2015
+- Electors 2011
+- Polling Stations 2021
+- Polling Stations 2019
+- Polling Stations 2015
+- Polling Stations 2011
+- Average Number of Electors per Poll 2021
+- Average Number of Electors per Poll 2019
+- Average Number of Electors per Poll 2015
+- Average Number of Electors per Poll 2011
+
+## Table 3: Number of ballots cast and voter turnout
+-Province
+-Population
+-Electors
+-Valid Ballots
+-Percentage of Valid Ballots
+-Rejected Ballots
+-Percentage of Rejected Ballots
+-Total Ballots Cast
+- Percentage of Voter Turnout
+
+## Table 4: Voter turnout for the 2019, 2015, 2011 and 2008 general elections
+
+## Table 5: Distribution of valid votes by voting method
+
+- Province
+- Stationary Poll
+- Mobile Poll
+- Advance polling stations
+- Special ballot
+- Total ballots
+
+
 Table 6: Distribution of valid votes under Special Voting Rules
 Table 7: Distribution of seats by political affiliation and sex
 Table 8: Number of valid votes by political affiliation
@@ -70,3 +112,25 @@ All candidates from all ridings
 Table 13: List of returning officers
 
 Not used.
+
+## poll by poll - format 2
+Used for rejected ballots only--but also has party short form name?
+
+- Electoral District Number
+- Electoral District Name_English
+- Electoral District Name_French
+- Polling Station Number
+- Polling Station Name (A name that generally represents the locality of the polling division boundary.)
+- Void Poll Indicator (Indicates that a poll exists but has no electors.)
+- No Poll Held Indicator (Indicates that the returning officer intended to hold this poll, but unforeseen circumstances prevented it.)
+- Merge With (Indicates the number of the polling station with which the results of this poll were merged.)
+- Rejected Ballots for Polling Station
+- Electors for Polling Station
+- Candidate’s Family Name
+- Candidate’s Middle Name
+- Candidate’s First Name
+- Political Affiliation Name_English 	The short-form English name of the candidate’s political affiliation.
+- Political Affiliation Name_French 	The short-form French name of the candidate’s political affiliation.
+- Incumbent Indicator (Y/N)
+- Elected Candidate Indicator (Y/N)
+- Candidate Poll Votes Count

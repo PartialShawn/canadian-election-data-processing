@@ -1,5 +1,3 @@
-print("Hello, world!")
-
 PRELIMINARY_RESULTS_FILENAME = 'data/preliminary_results.json'
 'data-source/ca_ge44_table_tableau11.csv'
 TABLE8_FILENAME = 'data-source/ca_ge44_table_tableau08.csv'

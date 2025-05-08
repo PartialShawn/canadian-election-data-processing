@@ -16,14 +16,28 @@ election_results_json = open('data/preliminary_results.json', 'r')
 districts = json.load(election_results_json)
 election_results_json.close()
 
+# Load districts
+federal_districts_json = open('data/ca-districts-index.json', 'r')
+federal_districts = json.load(federal_districts_json)
+federal_districts_json.close()
+
+
 for id,district in districts.items():
-    district_file = open(DISTRICTS_PATH+id+'.md', 'w')
+
+    if id in federal_districts:
+        district_name = federal_districts[id]['en']
+    else:
+        district_name = "Missing Riding Name"
+        print("- Error: Missing riding name for",id)
+    
+
+    district_file = open(PATH_TO_EXPORT_ZOLA+id+'.md', 'w', encoding='utf8')
     district_file.write(f"""+++
-title = '{id}'
+title = "{district_name}"
 [extra]
-district_id = '{id}'
+district_id = "{id}"
+district_name = "{district_name}"
 +++
-{id}
 """)
 
 with open(ELECTIONS_PATH+'ge44.md', 'w') as election_file:
@@ -37,7 +51,7 @@ election_id = 44
     #     "test"
     #    # print(candidate['party'],end=",")
     # print(ed_num, end="")
-    print(id, end=" ")
+    # print(id, end=" ")
     # print(district[0],end=" ")
     # print(district.items())
     # print(ed_num,"t", end=" ")
