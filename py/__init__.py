@@ -17,10 +17,10 @@ CA_GE_DATAFILES = {
     }
 }
 
-CA_PARTIES_MAP = "data-source/parties_map.csv"
-CA_PARTIES = "data-source/parties.csv"
-CA_PARTIES_MAP_JSON = "data/ca_parties_map.json"
-CA_PARTIES_JSON = "data/ca_parties.json"
+CA_PARTIES_MAP_SOURCE = "data-source/ca_parties_map.csv"
+CA_PARTIES_SOURCE = "data-source/ca_parties.csv"
+CA_PARTIES_MAP_JSON_FILENAME = "data/ca_parties_map.json"
+CA_PARTIES_JSON_FILENAME = "data/ca_parties.json"
 
 # Zola export
 ZOLA_FEDERAL_PATH = '../votes-count-zola/content/ca/'
@@ -48,3 +48,15 @@ PRELIM_CAN_PERCENT_BALLOTS = 11
 PRELIM_ED_REJECTED_BALLOTS = 12
 PRELIM_ED_TOTAL_BALLOTS = 14
 
+# parties.csv columns
+PARTIES_ID = 0
+PARTIES_SHORT_EN = 1
+PARTIES_SHORT_FR = 2
+PARTIES_COMMON_EN = 3
+PARTIES_COMMON_FR = 4
+PARTIES_LONG_EN = 5
+PARTIES_LONG_FR = 6
+PARTIES_REGISTERED = 7
+PARTIES_DEREGISTERED = 8
+PARTIES_WEBSITE_EN = 9
+PARTIES_WEBSITE_FR = 10
