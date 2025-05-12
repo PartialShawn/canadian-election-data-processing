@@ -17,6 +17,11 @@ CA_GE_DATAFILES = {
     }
 }
 
+CA_ELECTIONS_RESULTS_OUTPUT = {
+    '45': 'data/ca_ge45_results.json',
+    '44': 'data/ca_ge44_results.json'
+}
+
 CA_PARTIES_MAP_SOURCE = "data-source/ca_parties_map.csv"
 CA_PARTIES_SOURCE = "data-source/ca_parties.csv"
 CA_PARTIES_MAP_JSON_FILENAME = "data/ca_parties_map.json"
