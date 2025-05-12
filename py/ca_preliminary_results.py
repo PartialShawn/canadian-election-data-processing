@@ -60,14 +60,14 @@ with open(CA_GE_PRELIMINARY, encoding='utf8') as prelim_file:
         # This will overwrite preliminary results, if present.
         if first_result:
             districts[candidate[PRELIM_ED_NUM]] = {
-                'population': 0,
-                'electors': 0,
-                'ballots': 0,
-                'ballots_percent_electors': 0,
-                'rejected_ballots': 0,
-                'rejected_percent': 0,
-                'valid_ballots': 0,
-                'valid_percent': 0,
+                # 'population': ,
+                # 'electors': ,
+                'ballots': candidate[PRELIM_ED_TOTAL_BALLOTS],
+                # 'ballots_percent_electors': ,
+                'rejected_ballots': candidate[PRELIM_ED_REJECTED_BALLOTS],
+                # 'rejected_percent': ,
+                # 'valid_ballots': ,
+                # 'valid_percent': ,
                 'candidates': []
             }
             first_result = False
