@@ -1,5 +1,6 @@
 ca_parties_map.json
 ca_parties.json
+ca_districts_index.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

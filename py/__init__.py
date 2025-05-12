@@ -22,6 +22,8 @@ CA_PARTIES_SOURCE = "data-source/ca_parties.csv"
 CA_PARTIES_MAP_JSON_FILENAME = "data/ca_parties_map.json"
 CA_PARTIES_JSON_FILENAME = "data/ca_parties.json"
 
+CA_DISTRICTS_INDEX_FILENAME = 'data/ca_districts_index.json'
+
 # Zola export
 ZOLA_FEDERAL_PATH = '../votes-count-zola/content/ca/'
 ZOLA_FEDERAL_DISTRICTS_PATH = '../votes-count-zola/content/ca/districts/'
