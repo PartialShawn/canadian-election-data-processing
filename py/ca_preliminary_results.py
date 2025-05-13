@@ -24,6 +24,10 @@ last_result_type = ""
 last_ed = ""
 first_result = True
 
+print()
+print("Parsing preliminary elections results...")
+
+print(" - loading parties map data")
 with open(CA_PARTIES_MAP_JSON_FILENAME) as party_id_file:
     party_id = json.load(party_id_file)
     party_names = party_id.keys()
@@ -31,6 +35,7 @@ with open(CA_PARTIES_MAP_JSON_FILENAME) as party_id_file:
 # Process all lines. Skip 2 header lines, skip footnotes (at end).
 # Track if this is the first 
 
+print(" - loading preliminary results")
 with open(CA_GE_PRELIMINARY, encoding='utf8') as prelim_file:
     table_reader = csv.reader(prelim_file, delimiter='\t')
     next(table_reader) # skip the headers
@@ -85,9 +90,16 @@ with open(CA_GE_PRELIMINARY, encoding='utf8') as prelim_file:
             parties.add(candidate[PRELIM_CAN_PARTY_EN])
             parties.add(candidate[PRELIM_CAN_PARTY_FR])
 
+print(" - parsed",len(districts),"districts")
+
+if len(parties) > 0:
+    print(' - parties not found in party map:',parties)
+
+print(' - writing JSON file')
 # JSON export ridings
-export_json = open(CA_ELECTIONS_RESULTS_OUTPUT['44'], 'w')
+export_json = open(CA_ELECTIONS_RESULTS_OUTPUT[CA_GE_PRELIMINARY_ELECTION_NUMBER], 'w')
 json.dump(districts, export_json, indent=2)
 export_json.close()
 
-print('Parties not found in party map:',parties)
+print(' ... done.')
+print()
