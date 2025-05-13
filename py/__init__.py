@@ -1,5 +1,14 @@
+# Constants
+#
+# -----------------------------------------------------------------------------
+#           Licensed under the Apache License, Version 2.0
+# -----------------------------------------------------------------------------
+#
+from string import Template
+
 # Elections Canada Files
-CA_GE_PRELIMINARY = "data-source/ca_ge44_preliminary-2025-05-09.tsv"
+CA_GE_PRELIMINARY_ELECTION_NUMBER = '45'
+CA_GE_PRELIMINARY = "data-source/ca_ge45_preliminary-2025-05-09.tsv"
 CA_GE_DATAFILES = {
     44: {
         'TABLE1': 'data-source/ca_ge44_table_tableau01.csv',
@@ -31,14 +40,21 @@ CA_DISTRICTS_INDEX_FILENAME = 'data/ca_districts_index.json'
 
 # Zola export
 ZOLA_FEDERAL_PATH = '../votes-count-zola/content/ca/'
-ZOLA_FEDERAL_DISTRICTS_PATH = '../votes-count-zola/content/ca/districts/'
-ZOLA_FEDERAL_ELECTIONS_PATH = '../votes-count-zola/content/ca/elections/'
-ZOLA_FEDERAL_DISTRICTS_JSON = '../votes-count-zola/content/ca/districts/preliminary_results.json'
+ZOLA_FEDERAL_DISTRICTS_PATH = '../votes-count-zola/content/ca/district'
+ZOLA_FEDERAL_ELECTIONS_PATH = '../votes-count-zola/content/ca/election'
+ZOLA_FEDERAL_DISTRICTS_JSON = '../votes-count-zola/content/ca/district/preliminary_results.json'
 
 # Provincial/Territory SGC code to 2-letter province code & vice versa
 SGC_TO_ALPHA = { '10': 'NL', '11': 'PE', '12': 'NS', '13': 'NB', '24': 'QC', '35': 'ON', '46': 'MB', '47': 'SK', '48': 'AB', '59': 'BC', '60': 'YK', '61': 'NT', '62': 'NU' }
 
 ALPHA_TO_SGC = {'NL': '10', 'PE': '11', 'NS': '12', 'NB': '13', 'QC': '24', 'ON': '35', 'MB': '46', 'SK': '47', 'AB': '48', 'BC': '59', 'YK': '60', 'NT': '61', 'NU': '62'}
+
+
+
+
+#
+# Elections Canada data file column numbers
+#
 
 # Preliminary TSV columns
 PRELIM_ED_NUM = 0  # Column 2 is electoral district number
@@ -68,3 +84,29 @@ PARTIES_REGISTERED = 7
 PARTIES_DEREGISTERED = 8
 PARTIES_WEBSITE_EN = 9
 PARTIES_WEBSITE_FR = 10
+
+
+
+
+#
+# String Templates for Zola files
+#
+
+ZOLA_DISTRICT_TEMPLATE = """+++
+title = "$district_name"
+[extra]
+district_id = "$district_id"
+district_name = "$district_name"
++++
+"""
+
+ZOLA_ELECTION_TEMPLATE = """+++
+title = '$election_title'
+[extra]
+election_id = $election_number
++++
+"""
+
+ZOLA_CA_SECTION_FILE_PATH_TEMPLATE = '$section/$id.md'
+ZOLA_CA_ELECTION_FILE_TEMPLATE = '$section/$election_id/$district_id.md'
+ZOLA_CA_ELECTION_PATH_TEMPLATE = '$section/$election_id'
