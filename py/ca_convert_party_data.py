@@ -73,4 +73,24 @@ with open(CA_PARTIES_MAP_JSON_FILENAME, 'w', encoding='utf8') as export_json:
     json.dump(parties_map, export_json)
 
 print(' - JSON file written')
+
 print()
+print('Converting f96 parties map...')
+
+parties_map = {}
+try:
+    with open(CA_PARTIES_MAP_SHORT_SOURCE, encoding='utf8') as parties_file:
+        party_reader = csv.reader(parties_file)
+
+        for party_data in party_reader:
+            parties_map[party_data[0]] = party_data[1]
+
+    print(" - read", len(parties_map), "lines")
+except FileNotFoundError:
+    print ("\nError reading file parties map CSV: file not found.")
+    sys.exit(1)
+
+with open(CA_PARTIES_MAP_JSON_FILENAME, 'w', encoding='utf8') as export_json:
+    json.dump(parties_map, export_json)
+
+print(' - JSON file written')
