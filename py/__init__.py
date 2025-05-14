@@ -6,6 +6,45 @@
 #
 from string import Template
 
+CA_GE_ELECTIONS = {
+    '45': {
+        'id': '45',
+        'format': 'preliminary',
+        'type': 'preliminary',
+        'sources': {
+            'preliminary': 'data-source/ca_ge45_preliminary-2025-05-09.tsv'
+        },
+        'data': {
+            'data/ca_ge45_results.json'
+        }
+    },
+    '44': {
+        'id': '44',
+        'format': 'f96',
+        'type': 'official',
+        'sources': {
+            'table1': 'data-source/ca_ge44_table_tableau01.csv',
+            'table2': 'data-source/ca_ge44_table_tableau02.csv',
+            'table3': 'data-source/ca_ge44_table_tableau03.csv',
+            'table4': 'data-source/ca_ge44_table_tableau04.csv',
+            'table5': 'data-source/ca_ge44_table_tableau05.csv',
+            'table6': 'data-source/ca_ge44_table_tableau06.csv',
+            'table7': 'data-source/ca_ge44_table_tableau07.csv',
+            'table8': 'data-source/ca_ge44_table_tableau08.csv',
+            'table9': 'data-source/ca_ge44_table_tableau09.csv',
+            'table10': 'data-source/ca_ge44_table_tableau10.csv',
+            'table11': 'data-source/ca_ge44_table_tableau11.csv',
+            'table12': 'data-source/ca_ge44_table_tableau12.csv',
+        },
+        'data': {
+            'results': 'data/ca_ge44_results.json',
+            'districts': 'data/ca_ge44_districts.json',
+            'parties': 'data/ca_ge44_parties.json'
+        }
+    }
+}
+
+
 # Elections Canada Files
 CA_GE_PRELIMINARY_ELECTION_NUMBER = '45'
 CA_GE_PRELIMINARY = "data-source/ca_ge45_preliminary-2025-05-09.tsv"
@@ -30,9 +69,12 @@ CA_ELECTIONS_RESULTS_OUTPUT = {
     '45': 'data/ca_ge45_results.json',
     '44': 'data/ca_ge44_results.json'
 }
+CA_DISTRICTS_OUTPUT = "data/ca_ge{election['id']}_results.json"
 
+CA_PARTIES_MAP_SHORT_SOURCE = "data-source/ca_parties_map_f96.csv"
 CA_PARTIES_MAP_SOURCE = "data-source/ca_parties_map.csv"
 CA_PARTIES_SOURCE = "data-source/ca_parties.csv"
+CA_PARTIES_MAP_SHORT_JSON_FILENAME = "data/ca_parties_map_f96.json"
 CA_PARTIES_MAP_JSON_FILENAME = "data/ca_parties_map.json"
 CA_PARTIES_JSON_FILENAME = "data/ca_parties.json"
 
@@ -55,6 +97,7 @@ ALPHA_TO_SGC = {'NL': '10', 'PE': '11', 'NS': '12', 'NB': '13', 'QC': '24', 'ON'
 #
 # Elections Canada data file column numbers
 #
+
 
 # Preliminary TSV columns
 PRELIM_ED_NUM = 0  # Column 2 is electoral district number
