@@ -7,7 +7,7 @@
 
 from __init__ import *
 import json
-import ca_f96, ca_preliminary_results as ca_prelim
+import ca_f96, ca_prelim
 
 def parse_all_elections():
 
