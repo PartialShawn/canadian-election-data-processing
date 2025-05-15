@@ -152,7 +152,7 @@ def parse_district_result(election: dict) -> dict:
             cand_name_last = district[T11_ED_ELECTED_CANDIDATE]
             cand_name_given = ''
             cand_party = district[T11_ED_ELECTED_CANDIDATE]
-
+        # TODO: Align prelim and f96 candidate first/middle/last name usage
         districts[district[T11_ED_NUM]] = {
             'num': district[T11_ED_NUM],
             'status': 'official',
@@ -198,4 +198,4 @@ def debug():
     for election in CA_GE_ELECTIONS.values():
         print('Processing election',election['id'])
         if election['format'] == 'f96': parse_election(election)    
-debug()
+# debug()
