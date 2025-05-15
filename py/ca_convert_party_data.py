@@ -90,7 +90,7 @@ except FileNotFoundError:
     print ("\nError reading file parties map CSV: file not found.")
     sys.exit(1)
 
-with open(CA_PARTIES_MAP_JSON_FILENAME, 'w', encoding='utf8') as export_json:
+with open(CA_PARTIES_MAP_SHORT_JSON_FILENAME, 'w', encoding='utf8') as export_json:
     json.dump(parties_map, export_json)
 
 print(' - JSON file written')

@@ -35,33 +35,7 @@ T12_CAND_PER = 7
 T12_CAND_MAJ = 8
 T12_CAND_MAJ_PER = 9
 
-party_emap = {
-    'NDP-New Democratic Party/NPD-Nouveau Parti démocratique': 'NDP',
-    'Green Party/Parti Vert': 'Green',
-    'Liberal/Libéral': 'Liberal',
-    'Bloc Québécois/Bloc Québécois': 'Bloc',
-    "People's Party - PPC/Parti populaire - PPC": 'PeoplesP2019',
-    'Conservative/Conservateur': 'Conservative',
-    'Independent/Indépendant(e)': 'Independent',
-    'No Affiliation/Aucune appartenance': 'Independent',
-    "Christian Heritage Party/Parti de l'Héritage Chrétien": 'ChristianHP2004',
-    "Communist/Communiste": 'Communist2000',
-    "Parti Rhinocéros Party/Parti Rhinocéros Party": 'Rhinoceros2007',
-    "Marxist-Leninist/Marxiste-Léniniste": 'MarxistLeninist1993',
-    "Free Party Canada/Parti Libre Canada": 'Free2020',
-    "Libertarian/Libertarien": 'Libertarian2004',
-    "Marijuana Party/Parti Marijuana": 'Marijuana2000',
-    "Pour l'Indépendance du Québec/Pour l'Indépendance du Québec": 'IndependanceQuebec2019',
-    "VCP/CAC": 'VeteransC2019',
-    "Animal Protection Party/Parti Protection Animaux": 'AnimalPP2005',
-    "Parti Patriote/Parti Patriote": 'Patriote2021',
-    "Centrist/Centriste": 'Centrist2021',
-    "Maverick Party/Maverick Party": 'Maverick2021',
-    "National Citizens Alliance/Alliance Nationale Citoyens": 'NCitizensA2019',
-    "Nationalist/Nationaliste": 'CNationalist2019',
-    "CFF - Canada's Fourth Front/QFC - Quatrième front du Canada": 'FourthFront2025'
-    
-}
+with open(CA_PARTIES_MAP_SHORT_JSON_FILENAME) as f: party_map = json.load(f)
 
 def parse_candidates(election: dict, districts: dict):
     """ Parse table 12 to add candidate results to district data.
@@ -75,7 +49,7 @@ def parse_candidates(election: dict, districts: dict):
     """
 
     global party_map
-    file = open(election['sources']['table12'], encoding='utf8')
+    file = open(election['sources']['table12'], encoding=election['encoding'])
     election = csv.reader(file)
     next(election) # skip headers
     count = 0
@@ -83,20 +57,24 @@ def parse_candidates(election: dict, districts: dict):
 
     for candidate in election:
 
+        if not candidate:
+            print(' - Skip blank line')
+            continue # skip blank lines
+        
         # Parse candidate/party name
         if '**' in candidate[T12_CAND_NAME]:
             incumbent = True
             name_party = candidate[T12_CAND_NAME].split('**')
             cand_name = name_party[0].strip()
-            if name_party[1].strip() in party_emap:
-                cand_party = party_emap[name_party[1].strip()]
+            if name_party[1].strip() in party_map:
+                cand_party = party_map[name_party[1].strip()]
             else:
                 print(" - couldn't find party:", candidate[T12_CAND_NAME])
                 
         else:
             incumbent = False
             cand_party = None
-            for party,id in party_emap.items():
+            for party,id in party_map.items():
                 if party in candidate[T12_CAND_NAME]:
                     cand_party = id
                     cand_name = candidate[T12_CAND_NAME][:-len(party)-1]
@@ -106,12 +84,16 @@ def parse_candidates(election: dict, districts: dict):
                 cand_party = candidate[T12_CAND_NAME]
 
         # parse elected candidate data
-        if candidate[T12_CAND_MAJ]:
-            districts[candidate[T12_ED_NUM]]['majority'] = candidate[T12_CAND_MAJ]
-            districts[candidate[T12_ED_NUM]]['majority_per'] = candidate[T12_CAND_MAJ_PER]
-            elected = True
-        else:
+        try:
+            if candidate[T12_CAND_MAJ]:
+                districts[candidate[T12_ED_NUM]]['majority'] = candidate[T12_CAND_MAJ]
+                districts[candidate[T12_ED_NUM]]['majority_per'] = candidate[T12_CAND_MAJ_PER]
+                elected = True
+            else:
+                elected = False
+        except IndexError:
             elected = False
+            print(' - Error: missing majority info (blank values missing ending commas?)')
 
         districts[candidate[T12_ED_NUM]]['candidates'].append({
             'name': cand_name,
@@ -125,13 +107,6 @@ def parse_candidates(election: dict, districts: dict):
         })
     
     file.close()
-
-
-
-
-
-
-
 
 
 
@@ -150,16 +125,22 @@ def parse_district_result(election: dict) -> dict:
         A newly created dict of districts.
     """
 
-    global party_emap
+    global party_map
     districts = {}
-    file = open(election['sources']['table11'], encoding='utf8')
+    file = open(election['sources']['table11'], encoding=election['encoding'])
     reader_table = csv.reader(file)
     next(reader_table) # skip headers
 
     for district in reader_table:
 
+        if not district:
+            print(' - Skip blank lines')
+            continue # skip blank lines
+        
         # Parse candidate and party names
-        for party,id in party_emap.items():
+        cand_party = None
+        cand_name = None
+        for party,id in party_map.items():
             if party in district[T11_ED_ELECTED_CANDIDATE]:
                 cand_party = id
                 cand_name = district[T11_ED_ELECTED_CANDIDATE][:-len(party)-1].split(',')
@@ -171,7 +152,6 @@ def parse_district_result(election: dict) -> dict:
             cand_name_last = district[T11_ED_ELECTED_CANDIDATE]
             cand_name_given = ''
             cand_party = district[T11_ED_ELECTED_CANDIDATE]
-
 
         districts[district[T11_ED_NUM]] = {
             'num': district[T11_ED_NUM],
@@ -200,36 +180,22 @@ def parse_district_result(election: dict) -> dict:
 
 
 
-
-
-
 def parse_election(election: dict):
     print(" - parse official results")
-
     districts = parse_district_result(election)
     print(' - processed',len(districts),'districts')
     parse_candidates(election, districts)
     print(' - processed candidates')
-    # print(districts['35005'])
-    # exit(0)
-    # ca_f96.parse_parties(election)
 
     return districts
 
 
 
 def debug():
-    global party_map
-
     print()
     print("Debug")
     print()
-
-    with open(CA_PARTIES_MAP_JSON_FILENAME) as f: party_map = json.load(f)
-
     for election in CA_GE_ELECTIONS.values():
         print('Processing election',election['id'])
-
         if election['format'] == 'f96': parse_election(election)    
-
-# debug()
+debug()

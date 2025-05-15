@@ -10,6 +10,7 @@ CA_GE_ELECTIONS = {
     '45': {
         'id': '45',
         'format': 'preliminary',
+        'encoding': 'utf8',
         'type': 'preliminary',
         'sources': {
             'preliminary': 'data-source/ca_ge45_preliminary-2025-05-09.tsv'
@@ -21,6 +22,7 @@ CA_GE_ELECTIONS = {
     '44': {
         'id': '44',
         'format': 'f96',
+        'encoding': 'utf8',
         'type': 'official',
         'sources': {
             'table1': 'data-source/ca_ge44_table_tableau01.csv',
@@ -40,6 +42,131 @@ CA_GE_ELECTIONS = {
             'results': 'data/ca_ge44_results.json',
             'districts': 'data/ca_ge44_districts.json',
             'parties': 'data/ca_ge44_parties.json'
+        }
+    },
+    '43': {
+        'id': '43',
+        'format': 'f96',
+        'encoding': 'utf8',
+        'type': 'official',
+        'sources': {
+            'table1': 'data-source/ca_ge43_table_tableau01.csv',
+            'table2': 'data-source/ca_ge43_table_tableau02.csv',
+            'table3': 'data-source/ca_ge43_table_tableau03.csv',
+            'table4': 'data-source/ca_ge43_table_tableau04.csv',
+            'table5': 'data-source/ca_ge43_table_tableau05.csv',
+            'table6': 'data-source/ca_ge43_table_tableau06.csv',
+            'table7': 'data-source/ca_ge43_table_tableau07.csv',
+            'table8': 'data-source/ca_ge43_table_tableau08.csv',
+            'table9': 'data-source/ca_ge43_table_tableau09.csv',
+            'table10': 'data-source/ca_ge43_table_tableau10.csv',
+            'table11': 'data-source/ca_ge43_table_tableau11.csv',
+            'table12': 'data-source/ca_ge43_table_tableau12.csv',
+        },
+        'data': {
+            'results': 'data/ca_ge43_results.json',
+            'districts': 'data/ca_ge43_districts.json',
+            'parties': 'data/ca_ge43_parties.json'
+        }
+    },
+    '42': {
+        'id': '42',
+        'format': 'f96',
+        'encoding': 'utf8',
+        'type': 'official',
+        'sources': {
+            'table1': 'data-source/ca_ge42_table_tableau01.csv',
+            'table2': 'data-source/ca_ge42_table_tableau02.csv',
+            'table3': 'data-source/ca_ge42_table_tableau03.csv',
+            'table4': 'data-source/ca_ge42_table_tableau04.csv',
+            'table5': 'data-source/ca_ge42_table_tableau05.csv',
+            'table6': 'data-source/ca_ge42_table_tableau06.csv',
+            'table7': 'data-source/ca_ge42_table_tableau07.csv',
+            'table8': 'data-source/ca_ge42_table_tableau08.csv',
+            'table9': 'data-source/ca_ge42_table_tableau09.csv',
+            'table10': 'data-source/ca_ge42_table_tableau10.csv',
+            'table11': 'data-source/ca_ge42_table_tableau11.csv',
+            'table12': 'data-source/ca_ge42_table_tableau12.csv',
+        },
+        'data': {
+            'results': 'data/ca_ge42_results.json',
+            'districts': 'data/ca_ge42_districts.json',
+            'parties': 'data/ca_ge42_parties.json'
+        }
+    },
+    '41': {
+        'id': '41',
+        'format': 'f96',
+        'encoding': 'cp1252',
+        'type': 'official',
+        'sources': {
+            'table1': 'data-source/ca_ge41_table_tableau01.csv',
+            'table2': 'data-source/ca_ge41_table_tableau02.csv',
+            'table3': 'data-source/ca_ge41_table_tableau03.csv',
+            'table4': 'data-source/ca_ge41_table_tableau04.csv',
+            'table5': 'data-source/ca_ge41_table_tableau05.csv',
+            'table6': 'data-source/ca_ge41_table_tableau06.csv',
+            'table7': 'data-source/ca_ge41_table_tableau07.csv',
+            'table8': 'data-source/ca_ge41_table_tableau08.csv',
+            'table9': 'data-source/ca_ge41_table_tableau09.csv',
+            'table10': 'data-source/ca_ge41_table_tableau10.csv',
+            'table11': 'data-source/ca_ge41_table_tableau11.csv',
+            'table12': 'data-source/ca_ge41_table_tableau12.csv',
+        },
+        'data': {
+            'results': 'data/ca_ge41_results.json',
+            'districts': 'data/ca_ge41_districts.json',
+            'parties': 'data/ca_ge41_parties.json'
+        }
+    },
+    '40': {
+        'id': '40',
+        'format': 'f96',
+        'encoding': 'cp1252',
+        'type': 'official',
+        'sources': {
+            'table1': 'data-source/ca_ge40_table_tableau01.csv',
+            'table2': 'data-source/ca_ge40_table_tableau02.csv',
+            'table3': 'data-source/ca_ge40_table_tableau03.csv',
+            'table4': 'data-source/ca_ge40_table_tableau04.csv',
+            'table5': 'data-source/ca_ge40_table_tableau05.csv',
+            'table6': 'data-source/ca_ge40_table_tableau06.csv',
+            'table7': 'data-source/ca_ge40_table_tableau07.csv',
+            'table8': 'data-source/ca_ge40_table_tableau08.csv',
+            'table9': 'data-source/ca_ge40_table_tableau09.csv',
+            'table10': 'data-source/ca_ge40_table_tableau10.csv',
+            'table11': 'data-source/ca_ge40_table_tableau11.csv',
+            'table12': 'data-source/ca_ge40_table_tableau12.csv',
+        },
+        'data': {
+            'results': 'data/ca_ge40_results.json',
+            'districts': 'data/ca_ge40_districts.json',
+            'parties': 'data/ca_ge40_parties.json'
+        }
+    },
+    '39': {
+        'id': '39',
+        'format': 'f96.0',
+        'encoding': 'cp1252',
+        'type': 'official',
+        'sources': {
+            'table1': 'data-source/ca_ge39_table_tableau01.csv',
+            'table2': 'data-source/ca_ge39_table_tableau02.csv',
+            'table3': 'data-source/ca_ge39_table_tableau03.csv',
+            'table4': 'data-source/ca_ge39_table_tableau04.csv',
+            'table5': 'data-source/ca_ge39_table_tableau05.csv',
+            'table6': 'data-source/ca_ge39_table_tableau06.csv',
+            'table7': 'data-source/ca_ge39_table_tableau07.csv',
+            'table8': 'data-source/ca_ge39_table_tableau08.csv',
+            'table9': 'data-source/ca_ge39_table_tableau09.csv',
+            'table10': 'data-source/ca_ge39_table_tableau10.csv',
+            'table11': 'data-source/ca_ge39_table_tableau11.csv',
+            'table12': 'data-source/ca_ge39_table_tableau12.csv',
+        },
+        'data': {
+            'results': 'data/ca_ge39_results.json',
+            'districts': 'data/ca_ge39_districts.json',
+            'parties': 'data/ca_ge39_parties.json'
         }
     }
 }

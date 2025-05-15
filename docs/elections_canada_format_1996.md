@@ -2,7 +2,11 @@
 
 F96 is the format for elections results using since 1996 in elections and by-elections.
 
+- GE40-41 tables used cp1252 encoding.
+- GE39-44 tables used utf8 encoding.
 
+- GE40 (2008) table 12 omitted the empty comma separators at the end of the last line.
+- GE39 (2006) tables 11 and 12 does not have the district number.
 
 ## Table 1: Number of electors and polling stations
 -Province

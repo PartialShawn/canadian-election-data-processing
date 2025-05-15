@@ -19,15 +19,15 @@ def parse_all_elections():
             print(" - parse preliminary results")
         elif election['format'] == 'f96':
             districts = ca_f96.parse_election(election)
+
+            print(" - writing districts JSON file")
+            election_json = open(election['data']['results'], 'w')
+            json.dump(districts, election_json, indent=2)
+            election_json.close()
         else:
             print(" - ERROR: invalid type")
 
-    print(" - writing districts JSON file")
-    election_json = open(election['data']['results'], 'w')
-    json.dump(districts, election_json, indent=2)
-    election_json.close()
-
-    print(" ... done")
+        print(" ... done")
 
     
 parse_all_elections()
