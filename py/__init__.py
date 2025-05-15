@@ -16,7 +16,9 @@ CA_GE_ELECTIONS = {
             'preliminary': 'data-source/ca_ge45_preliminary-2025-05-09.tsv'
         },
         'data': {
-            'data/ca_ge45_results.json'
+            'results': 'data/ca_ge45_results.json',
+            'districts': 'data/ca_ge45_districts.json',
+            'parties': 'data/ca_ge45_parties.json'
         }
     },
     '44': {
@@ -231,7 +233,7 @@ PRELIM_ED_NUM = 0  # Column 2 is electoral district number
 PRELIM_ED_NAME_EN = 1 # Column 1 is electoral district name
 PRELIM_ED_NAME_FR = 2
 PRELIM_ED_RESULT_TYPE_EN = 3
-PRELIM_ED_RESULT_TYPE_EN = 4
+PRELIM_ED_RESULT_TYPE_FR = 4
 PRELIM_CAN_LAST = 5
 PRELIM_CAN_MIDDLE = 6
 PRELIM_CAN_FIRST = 7

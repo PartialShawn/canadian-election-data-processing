@@ -17,89 +17,115 @@ from __init__ import *
 import csv, json
 
 
-# Initialize variables
-districts = {} # All districts
-parties = set()
-last_result_type = ""
-last_ed = ""
-first_result = True
+def district_init(district: dict) -> dict:
+    ballots_valid = int(district[PRELIM_ED_TOTAL_BALLOTS])-int(district[PRELIM_ED_REJECTED_BALLOTS])
+    ballots_rej_per = round(int(district[PRELIM_ED_REJECTED_BALLOTS])/int(district[PRELIM_ED_TOTAL_BALLOTS]), 1)
+    return {
+        'num': district[PRELIM_ED_NUM],
+        'status': district[PRELIM_ED_RESULT_TYPE_EN],
+        'pop': None,
+        'electors': None,
+        'ballots': district[PRELIM_ED_TOTAL_BALLOTS],
+        'turnout': None,
+        'ballots_valid': ballots_valid,
+        'ballots_valid_per': None,
+        'ballots_rej': district[PRELIM_ED_REJECTED_BALLOTS],
+        'ballots_rej_per': ballots_rej_per,
+        'electors_abstained': None,
+        'electors_abstained_per': None,
+        'electors_abstained_per_pop': None,
+        'ineligible': None,
+        'ineligible_per': None,
+        'elected_candidate_given': None,
+        'elected_candidate_last': None,
+        'elected_candidate_party': None,
+        'candidates': []
+    }
 
-print()
-print("Parsing preliminary elections results...")
 
-print(" - loading parties map data")
-with open(CA_PARTIES_MAP_JSON_FILENAME) as party_id_file:
-    party_id = json.load(party_id_file)
-    party_names = party_id.keys()
 
-# Process all lines. Skip 2 header lines, skip footnotes (at end).
-# Track if this is the first 
+def update_elected_candidate(districts: dict, highest: dict, party_id: dict):
+    # TODO: Align prelim and f96 candidate first/middle/last name usage
+    districts[highest[PRELIM_ED_NUM]]['elected_candidate_given'] = highest[PRELIM_CAN_FIRST]
+    districts[highest[PRELIM_ED_NUM]]['elected_candidate_last'] = highest[PRELIM_CAN_LAST]
+    districts[highest[PRELIM_ED_NUM]]['elected_candidate_party'] = party_id[highest[PRELIM_CAN_PARTY_EN]]
 
-print(" - loading preliminary results")
-with open(CA_GE_PRELIMINARY, encoding='utf8') as prelim_file:
+    name = highest[PRELIM_CAN_FIRST] + ' ' + highest[PRELIM_CAN_LAST]
+    for candidate in districts[highest[PRELIM_ED_NUM]]['candidates']:
+        if candidate['name'] == name and candidate['party'] == party_id[highest[PRELIM_CAN_PARTY_EN]]:
+            candidate['elected'] = True
+
+        
+
+
+def parse_candidates(election: dict) -> dict:
+    # Initialize variables
+    districts = {} # All districts
+    parties = set()
+    last_result_type = None
+    last_ed = None
+    highest = None
+
+    print(" - loading parties map data")
+    with open(CA_PARTIES_MAP_JSON_FILENAME) as party_id_file:
+        party_id = json.load(party_id_file)
+        party_names = party_id.keys()
+
+    # Process all lines. Skip 2 header lines, skip footnotes (at end).
+    print(" - loading preliminary results")
+    prelim_file = open(CA_GE_PRELIMINARY, encoding='utf8')
+
     table_reader = csv.reader(prelim_file, delimiter='\t')
     next(table_reader) # skip the headers
     next(table_reader)
 
     for candidate in table_reader:
-
-        # Check if validated results or new district
-        """
-            The preliminary results TSV lists all district results first as
-            preliminary results, and then again as validated results. In
-            either case, treat this as if starting a new district by creating
-            (or clearing in the case of validated results) a blank dictionary
-            for the district.
-
-            This removes the preliminary results if there are validated
-            results.
-        """ 
+        if candidate[0][0] == '*': continue # Skip if a footnote
+        
+        # Check if next district, or validated results for district
+        # This will overwrite preliminary results, if present.
         if candidate[PRELIM_ED_RESULT_TYPE_EN] != last_result_type or candidate[PRELIM_ED_NUM] != last_ed:
+            if highest: update_elected_candidate(districts, highest, party_id)
+            districts[candidate[PRELIM_ED_NUM]] = district_init(candidate)
+            highest = candidate
             last_result_type = candidate[PRELIM_ED_RESULT_TYPE_EN]
             last_ed = candidate[PRELIM_ED_NUM]
-            first_result = True
-        
-        if candidate[0][0] == '*': continue # Skip if a footnote
+        else:
+            if int(candidate[PRELIM_CAN_BALLOTS]) > int(highest[PRELIM_CAN_BALLOTS]):
+                highest = candidate
 
-        # Add to dictionary of electoral districts if first result.
-        # This will overwrite preliminary results, if present.
-        if first_result:
-            districts[candidate[PRELIM_ED_NUM]] = {
-                # 'population': ,
-                # 'electors': ,
-                'ballots': candidate[PRELIM_ED_TOTAL_BALLOTS],
-                # 'ballots_percent_electors': ,
-                'rejected_ballots': candidate[PRELIM_ED_REJECTED_BALLOTS],
-                # 'rejected_percent': ,
-                # 'valid_ballots': ,
-                # 'valid_percent': ,
-                'candidates': []
-            }
-            first_result = False
-        districts[candidate[PRELIM_ED_NUM]]['candidates'].append({
-            'name_first': candidate[PRELIM_CAN_FIRST],
-            'name_middle': candidate[PRELIM_CAN_MIDDLE],
-            'name_last': candidate[PRELIM_CAN_LAST],
-            'party': candidate[PRELIM_CAN_PARTY_EN],
-            'count_ballots': candidate[PRELIM_CAN_BALLOTS],
-            'percent_ballots': candidate[PRELIM_CAN_PERCENT_BALLOTS]
-        })
-        
-        # Check for missing data
-        if candidate[PRELIM_CAN_PARTY_EN] not in party_names:
+        if candidate[PRELIM_CAN_MIDDLE]:
+            name = candidate[PRELIM_CAN_FIRST] + ' ' + candidate[PRELIM_CAN_MIDDLE] + ' ' + candidate[PRELIM_CAN_LAST]
+        else:
+            name = candidate[PRELIM_CAN_FIRST] + ' ' + candidate[PRELIM_CAN_LAST]
+        if candidate[PRELIM_CAN_PARTY_EN] in party_names:
+            party = party_id[candidate[PRELIM_CAN_PARTY_EN]]
+        else:
             parties.add(candidate[PRELIM_CAN_PARTY_EN])
             parties.add(candidate[PRELIM_CAN_PARTY_FR])
+            party = None
 
-print(" - parsed",len(districts),"districts")
+        districts[candidate[PRELIM_ED_NUM]]['candidates'].append({
+            'name': name,
+            'party': party,
+            'ballots': candidate[PRELIM_CAN_BALLOTS],
+            'per_ballots': candidate[PRELIM_CAN_PERCENT_BALLOTS],
+            'per_electors': None,
+            'per_pop': None,
+            'elected': False,
+            'incumbent': False
+        })
+        
+    prelim_file.close()
+    print(" - parsed",len(districts),"districts")
+    if len(parties) > 0: print(' - parties not found in party map:',parties)
+    return districts
 
-if len(parties) > 0:
-    print(' - parties not found in party map:',parties)
 
-print(' - writing JSON file')
-# JSON export ridings
-export_json = open(CA_ELECTIONS_RESULTS_OUTPUT[CA_GE_PRELIMINARY_ELECTION_NUMBER], 'w')
-json.dump(districts, export_json, indent=2)
-export_json.close()
 
-print(' ... done.')
-print()
+def parse_election(election: dict):
+    print(" - parse preliminary results")
+    districts = parse_candidates(election)
+    # update_districts(districts)
+    return districts
+# parse_election(CA_GE_ELECTIONS['45'])

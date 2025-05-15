@@ -7,7 +7,7 @@
 
 from __init__ import *
 import json
-import ca_f96
+import ca_f96, ca_preliminary_results as ca_prelim
 
 def parse_all_elections():
 
@@ -16,18 +16,17 @@ def parse_all_elections():
         print('Processing election',election['id'],election['type'], '...')
 
         if election['format'] == 'preliminary':
-            print(" - parse preliminary results")
+            districts = ca_prelim.parse_election(election)
         elif election['format'] == 'f96':
             districts = ca_f96.parse_election(election)
-
-            print(" - writing districts JSON file")
-            election_json = open(election['data']['results'], 'w')
-            json.dump(districts, election_json, indent=2)
-            election_json.close()
         else:
             print(" - ERROR: invalid type")
+            districts = None
 
-        print(" ... done")
+        print(" - writing districts JSON file")
+        election_json = open(election['data']['results'], 'w')
+        json.dump(districts, election_json, indent=2)
+        election_json.close()
 
     
 parse_all_elections()
