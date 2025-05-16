@@ -152,9 +152,17 @@ def parse_district_result(election: dict) -> dict:
             cand_name_last = district[T11_ED_ELECTED_CANDIDATE]
             cand_name_given = ''
             cand_party = district[T11_ED_ELECTED_CANDIDATE]
+        if '/' in district[T11_ED_NAME]:
+            if SGC_TO_ALPHA[district[T11_ED_NUM][:2]]=='QC':
+                ed_name = district[T11_ED_NAME].split('/')[1]
+            else:
+                ed_name = district[T11_ED_NAME].split('/')[0]
+        else:
+            ed_name = district[T11_ED_NAME]
         # TODO: Align prelim and f96 candidate first/middle/last name usage
         districts[district[T11_ED_NUM]] = {
             'num': district[T11_ED_NUM],
+            'name': ed_name,
             'status': 'official',
             'pop': district[T11_ED_POP],
             'electors': district[T11_ED_ELECTORS_TOTAL],

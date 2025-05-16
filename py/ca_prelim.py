@@ -20,8 +20,14 @@ import csv, json
 def district_init(district: dict) -> dict:
     ballots_valid = int(district[PRELIM_ED_TOTAL_BALLOTS])-int(district[PRELIM_ED_REJECTED_BALLOTS])
     ballots_rej_per = round(int(district[PRELIM_ED_REJECTED_BALLOTS])/int(district[PRELIM_ED_TOTAL_BALLOTS]), 1)
+    if SGC_TO_ALPHA[district[PRELIM_ED_NUM][:2]]=='QC':
+        ed_name = district[PRELIM_ED_NAME_FR]
+    else:
+        ed_name = district[PRELIM_ED_NAME_EN]
+
     return {
         'num': district[PRELIM_ED_NUM],
+        'name': ed_name,
         'status': district[PRELIM_ED_RESULT_TYPE_EN],
         'pop': None,
         'electors': None,
