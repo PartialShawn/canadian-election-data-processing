@@ -22,6 +22,11 @@ def district_init(district: dict) -> dict:
     ballots_rej_per = round(int(district[PRELIM_ED_REJECTED_BALLOTS])/int(district[PRELIM_ED_TOTAL_BALLOTS]), 1)
     if SGC_TO_ALPHA[district[PRELIM_ED_NUM][:2]]=='QC':
         ed_name = district[PRELIM_ED_NAME_FR]
+        if ed_name == "Côte-du-Sud-Rivière-du-Loup-Kataskomiq-Témiscouata":
+            ed_name = "Côte-du-Sud–Rivière-du-Loup–Kataskomiq–Témiscouata"
+            print(" - Corrected",district[PRELIM_ED_NUM],"to",ed_name)
+            # TODO: confirm this is not a thing in official 45 results
+            # TODO: remove if this is fixed in later elections
     else:
         ed_name = district[PRELIM_ED_NAME_EN]
 

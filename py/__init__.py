@@ -4,7 +4,6 @@
 #           Licensed under the Apache License, Version 2.0
 # -----------------------------------------------------------------------------
 #
-from string import Template
 
 CA_GE_ELECTIONS = {
     '45': {
@@ -145,32 +144,32 @@ CA_GE_ELECTIONS = {
             'districts': 'data/ca_ge40_districts.json',
             'parties': 'data/ca_ge40_parties.json'
         }
-    },
-    '39': {
-        'id': '39',
-        'format': 'f96.0',
-        'encoding': 'cp1252',
-        'type': 'official',
-        'sources': {
-            'table1': 'data-source/ca_ge39_table_tableau01.csv',
-            'table2': 'data-source/ca_ge39_table_tableau02.csv',
-            'table3': 'data-source/ca_ge39_table_tableau03.csv',
-            'table4': 'data-source/ca_ge39_table_tableau04.csv',
-            'table5': 'data-source/ca_ge39_table_tableau05.csv',
-            'table6': 'data-source/ca_ge39_table_tableau06.csv',
-            'table7': 'data-source/ca_ge39_table_tableau07.csv',
-            'table8': 'data-source/ca_ge39_table_tableau08.csv',
-            'table9': 'data-source/ca_ge39_table_tableau09.csv',
-            'table10': 'data-source/ca_ge39_table_tableau10.csv',
-            'table11': 'data-source/ca_ge39_table_tableau11.csv',
-            'table12': 'data-source/ca_ge39_table_tableau12.csv',
-        },
-        'data': {
-            'results': 'data/ca_ge39_results.json',
-            'districts': 'data/ca_ge39_districts.json',
-            'parties': 'data/ca_ge39_parties.json'
-        }
     }
+    # '39': {
+    #     'id': '39',
+    #     'format': 'f96.0',
+    #     'encoding': 'cp1252',
+    #     'type': 'official',
+    #     'sources': {
+    #         'table1': 'data-source/ca_ge39_table_tableau01.csv',
+    #         'table2': 'data-source/ca_ge39_table_tableau02.csv',
+    #         'table3': 'data-source/ca_ge39_table_tableau03.csv',
+    #         'table4': 'data-source/ca_ge39_table_tableau04.csv',
+    #         'table5': 'data-source/ca_ge39_table_tableau05.csv',
+    #         'table6': 'data-source/ca_ge39_table_tableau06.csv',
+    #         'table7': 'data-source/ca_ge39_table_tableau07.csv',
+    #         'table8': 'data-source/ca_ge39_table_tableau08.csv',
+    #         'table9': 'data-source/ca_ge39_table_tableau09.csv',
+    #         'table10': 'data-source/ca_ge39_table_tableau10.csv',
+    #         'table11': 'data-source/ca_ge39_table_tableau11.csv',
+    #         'table12': 'data-source/ca_ge39_table_tableau12.csv',
+    #     },
+    #     'data': {
+    #         'results': 'data/ca_ge39_results.json',
+    #         'districts': 'data/ca_ge39_districts.json',
+    #         'parties': 'data/ca_ge39_parties.json'
+    #     }
+    # }
 }
 
 
@@ -209,11 +208,6 @@ CA_PARTIES_JSON_FILENAME = "data/ca_parties.json"
 
 CA_DISTRICTS_INDEX_FILENAME = 'data/ca_districts_index.json'
 
-# Zola export
-ZOLA_FEDERAL_PATH = '../votes-count-zola/content/ca/'
-ZOLA_FEDERAL_DISTRICTS_PATH = '../votes-count-zola/content/ca/district'
-ZOLA_FEDERAL_ELECTIONS_PATH = '../votes-count-zola/content/ca/election'
-ZOLA_FEDERAL_DISTRICTS_JSON = '../votes-count-zola/content/ca/district/preliminary_results.json'
 
 # Provincial/Territory SGC code to 2-letter province code & vice versa
 SGC_TO_ALPHA = { '10': 'NL', '11': 'PE', '12': 'NS', '13': 'NB', '24': 'QC', '35': 'ON', '46': 'MB', '47': 'SK', '48': 'AB', '59': 'BC', '60': 'YK', '61': 'NT', '62': 'NU' }
@@ -257,28 +251,3 @@ PARTIES_DEREGISTERED = 8
 PARTIES_WEBSITE_EN = 9
 PARTIES_WEBSITE_FR = 10
 
-
-
-
-#
-# String Templates for Zola files
-#
-
-ZOLA_DISTRICT_TEMPLATE = """+++
-title = "$district_name"
-[extra]
-district_id = "$district_id"
-district_name = "$district_name"
-+++
-"""
-
-ZOLA_ELECTION_TEMPLATE = """+++
-title = '$election_title'
-[extra]
-election_id = $election_number
-+++
-"""
-
-ZOLA_CA_SECTION_FILE_PATH_TEMPLATE = '$section/$id.md'
-ZOLA_CA_ELECTION_FILE_TEMPLATE = '$section/$election_id/$district_id.md'
-ZOLA_CA_ELECTION_PATH_TEMPLATE = '$section/$election_id'
