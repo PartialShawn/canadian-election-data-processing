@@ -50,24 +50,27 @@ def district_init(district: dict) -> dict:
         'elected_candidate_given': None,
         'elected_candidate_last': None,
         'elected_candidate_party': None,
-        'elected_maj': None,
-        'elected_maj_per': None,
+        'elected_candidate_maj': None,
+        'elected_candidate_maj_per': None,
         'candidates': []
     }
 
 
 
-def update_elected_candidate(districts: dict, highest: dict, party_id: dict):
+def update_elected_candidate(districts: dict, first: dict, second: dict, party_id: dict):
     # TODO: Align prelim and f96 candidate first/middle/last name usage
-    districts[highest[PRELIM_ED_NUM]]['elected_candidate_given'] = highest[PRELIM_CAN_FIRST]
-    districts[highest[PRELIM_ED_NUM]]['elected_candidate_last'] = highest[PRELIM_CAN_LAST]
-    districts[highest[PRELIM_ED_NUM]]['elected_candidate_party'] = party_id[highest[PRELIM_CAN_PARTY_EN]]
-    districts[highest[PRELIM_ED_NUM]]['elected_candidate_maj'] = highest[PRELIM_CAN_PERCENT_BALLOTS]
-    districts[highest[PRELIM_ED_NUM]]['elected_candidate_maj_per'] = highest[PRELIM_CAN_PERCENT_BALLOTS]
+    name = first[PRELIM_CAN_FIRST] + ' ' + first[PRELIM_CAN_LAST]
+    maj = int(first[PRELIM_CAN_BALLOTS])-int(second[PRELIM_CAN_BALLOTS])
+    maj_per = round(float(first[PRELIM_CAN_PERCENT_BALLOTS])-float(second[PRELIM_CAN_PERCENT_BALLOTS]), 1)
 
-    name = highest[PRELIM_CAN_FIRST] + ' ' + highest[PRELIM_CAN_LAST]
-    for candidate in districts[highest[PRELIM_ED_NUM]]['candidates']:
-        if candidate['name'] == name and candidate['party'] == party_id[highest[PRELIM_CAN_PARTY_EN]]:
+    districts[first[PRELIM_ED_NUM]]['elected_candidate_given'] = first[PRELIM_CAN_FIRST]
+    districts[first[PRELIM_ED_NUM]]['elected_candidate_last'] = first[PRELIM_CAN_LAST]
+    districts[first[PRELIM_ED_NUM]]['elected_candidate_party'] = party_id[first[PRELIM_CAN_PARTY_EN]]
+    districts[first[PRELIM_ED_NUM]]['elected_candidate_maj'] = maj
+    districts[first[PRELIM_ED_NUM]]['elected_candidate_maj_per'] = maj_per
+
+    for candidate in districts[first[PRELIM_ED_NUM]]['candidates']:
+        if candidate['name'] == name and candidate['party'] == party_id[first[PRELIM_CAN_PARTY_EN]]:
             candidate['elected'] = True
 
         
@@ -79,7 +82,8 @@ def parse_candidates(election: dict) -> dict:
     parties = set()
     last_result_type = None
     last_ed = None
-    highest = None
+    first = None
+    second = None
 
     print(" - loading parties map data")
     with open(CA_PARTIES_MAP_JSON_FILENAME) as party_id_file:
@@ -100,14 +104,18 @@ def parse_candidates(election: dict) -> dict:
         # Check if next district, or validated results for district
         # This will overwrite preliminary results, if present.
         if candidate[PRELIM_ED_RESULT_TYPE_EN] != last_result_type or candidate[PRELIM_ED_NUM] != last_ed:
-            if highest: update_elected_candidate(districts, highest, party_id)
+            if first: update_elected_candidate(districts=districts, first=first, second=second,  party_id=party_id)
             districts[candidate[PRELIM_ED_NUM]] = district_init(candidate)
-            highest = candidate
+            first = candidate
+            second = None
             last_result_type = candidate[PRELIM_ED_RESULT_TYPE_EN]
             last_ed = candidate[PRELIM_ED_NUM]
         else:
-            if int(candidate[PRELIM_CAN_BALLOTS]) > int(highest[PRELIM_CAN_BALLOTS]):
-                highest = candidate
+            if int(candidate[PRELIM_CAN_BALLOTS]) > int(first[PRELIM_CAN_BALLOTS]):
+                second = first
+                first = candidate
+            elif not second or int(candidate[PRELIM_CAN_BALLOTS]) > int(second[PRELIM_CAN_BALLOTS]):
+                second = candidate
 
         if candidate[PRELIM_CAN_MIDDLE]:
             name = candidate[PRELIM_CAN_FIRST] + ' ' + candidate[PRELIM_CAN_MIDDLE] + ' ' + candidate[PRELIM_CAN_LAST]
@@ -130,7 +138,7 @@ def parse_candidates(election: dict) -> dict:
             'elected': False,
             'incumbent': False
         })
-        
+    update_elected_candidate(districts=districts, first=first, second=second,  party_id=party_id)
     prelim_file.close()
     print(" - parsed",len(districts),"districts")
     if len(parties) > 0: print(' - parties not found in party map:',parties)
@@ -141,6 +149,5 @@ def parse_candidates(election: dict) -> dict:
 def parse_election(election: dict):
     print(" - parse preliminary results")
     districts = parse_candidates(election)
-    # update_districts(districts)
     return districts
 # parse_election(CA_GE_ELECTIONS['45'])
