@@ -14,6 +14,7 @@ import os
 ZOLA_DISTRICT_TEMPLATE = """+++
 title = "$district_name"
 [extra]
+election_id = $election_id
 district_id = "$district_id"
 district_name = "$district_name"
 +++
@@ -22,6 +23,7 @@ district_name = "$district_name"
 ZOLA_ELECTION_TEMPLATE = """+++
 title = '$election_title'
 page_template = 'ca_district.html'
+template = 'ca_election.html'
 sort_by = 'slug'
 [extra]
 election_id = $election_number
@@ -62,7 +64,7 @@ def generate_election_files(election: dict):
 
     for id,district in districts.items():
         district_file = open(file_path.substitute(section=ZOLA_FEDERAL_ELECTIONS_PATH, election_id=election['id'], district_id=id), 'w', encoding='utf8')
-        district_file.write(district_content.substitute(district_id=id, district_name=district['name']))
+        district_file.write(district_content.substitute(election_id=election['id'], district_id=id, district_name=district['name']))
 
     print(' - created',len(districts.items()),'district files')
     print(' ... done')
