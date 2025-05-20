@@ -86,8 +86,8 @@ def parse_candidates(election: dict, districts: dict):
         # parse elected candidate data
         try:
             if candidate[T12_CAND_MAJ]:
-                districts[candidate[T12_ED_NUM]]['majority'] = candidate[T12_CAND_MAJ]
-                districts[candidate[T12_ED_NUM]]['majority_per'] = candidate[T12_CAND_MAJ_PER]
+                districts[candidate[T12_ED_NUM]]['elected_candidate_maj'] = candidate[T12_CAND_MAJ]
+                districts[candidate[T12_ED_NUM]]['elected_candidate_maj_per'] = candidate[T12_CAND_MAJ_PER]
                 elected = True
             else:
                 elected = False
@@ -180,8 +180,8 @@ def parse_district_result(election: dict) -> dict:
             'elected_candidate_given': cand_name_given,
             'elected_candidate_last': cand_name_last,
             'elected_candidate_party': cand_party,
-            'elected_candidate_maj': district[T12_CAND_MAJ],
-            'elected_candidate_maj_per': district[T12_CAND_MAJ_PER],
+            'elected_candidate_maj': None,
+            'elected_candidate_maj_per': None,
             'candidates': []
         }
     
