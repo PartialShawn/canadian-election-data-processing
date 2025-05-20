@@ -45,6 +45,8 @@ def district_init(district: dict) -> dict:
         'elected_candidate_given': None,
         'elected_candidate_last': None,
         'elected_candidate_party': None,
+        'elected_maj': None,
+        'elected_maj_per': None,
         'candidates': []
     }
 
@@ -55,6 +57,8 @@ def update_elected_candidate(districts: dict, highest: dict, party_id: dict):
     districts[highest[PRELIM_ED_NUM]]['elected_candidate_given'] = highest[PRELIM_CAN_FIRST]
     districts[highest[PRELIM_ED_NUM]]['elected_candidate_last'] = highest[PRELIM_CAN_LAST]
     districts[highest[PRELIM_ED_NUM]]['elected_candidate_party'] = party_id[highest[PRELIM_CAN_PARTY_EN]]
+    districts[highest[PRELIM_ED_NUM]]['elected_candidate_maj'] = highest[PRELIM_CAN_PERCENT_BALLOTS]
+    districts[highest[PRELIM_ED_NUM]]['elected_candidate_maj_per'] = highest[PRELIM_CAN_PERCENT_BALLOTS]
 
     name = highest[PRELIM_CAN_FIRST] + ' ' + highest[PRELIM_CAN_LAST]
     for candidate in districts[highest[PRELIM_ED_NUM]]['candidates']:
