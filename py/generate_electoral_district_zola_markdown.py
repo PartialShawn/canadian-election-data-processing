@@ -25,6 +25,7 @@ title = '$election_title'
 page_template = 'ca_district.html'
 template = 'ca_election.html'
 sort_by = 'slug'
+weight = $election_weight
 [extra]
 election_id = $election_number
 +++
@@ -46,6 +47,7 @@ def generate_election_files(election: dict):
     district_content = Template(ZOLA_DISTRICT_TEMPLATE)
     election_content = Template(ZOLA_ELECTION_TEMPLATE)
     election_path = Template(ZOLA_CA_ELECTION_PATH_TEMPLATE)
+    election_weight = 100-int(election['id'])
 
     print()
     print('Generating ',election['id'])
@@ -54,7 +56,7 @@ def generate_election_files(election: dict):
         os.makedirs(election_path.substitute(section=ZOLA_FEDERAL_ELECTIONS_PATH, election_id=election['id']))
 
     with open(file_path.substitute(section=ZOLA_FEDERAL_ELECTIONS_PATH, election_id=election['id'], district_id='_index'), 'w') as election_file:
-        election_file.write(election_content.substitute(election_title='General Election '+election['id'], election_number=election['id']))
+        election_file.write(election_content.substitute(election_title='General Election '+election['id'], election_number=election['id'], election_weight=election_weight))
 
     print(' - Created default file')
     
