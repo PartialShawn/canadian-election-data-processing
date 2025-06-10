@@ -22,8 +22,8 @@ district_name = "$district_name"
 
 ZOLA_ELECTION_TEMPLATE = """+++
 title = '$election_title'
-page_template = 'ca_district.html'
-template = 'ca_election.html'
+page_template = 'ca_election_district.html'
+template = 'ca_election_overview.html'
 sort_by = 'slug'
 weight = $election_weight
 [extra]

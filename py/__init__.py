@@ -176,28 +176,28 @@ CA_GE_ELECTIONS = {
 # Elections Canada Files
 CA_GE_PRELIMINARY_ELECTION_NUMBER = '45'
 CA_GE_PRELIMINARY = "data-source/ca_ge45_preliminary-2025-05-09.tsv"
-CA_GE_DATAFILES = {
-    44: {
-        'TABLE1': 'data-source/ca_ge44_table_tableau01.csv',
-        'TABLE2': 'data-source/ca_ge44_table_tableau02.csv',
-        'TABLE3': 'data-source/ca_ge44_table_tableau03.csv',
-        'TABLE4': 'data-source/ca_ge44_table_tableau04.csv',
-        'TABLE5': 'data-source/ca_ge44_table_tableau05.csv',
-        'TABLE6': 'data-source/ca_ge44_table_tableau06.csv',
-        'TABLE7': 'data-source/ca_ge44_table_tableau07.csv',
-        'TABLE8': 'data-source/ca_ge44_table_tableau08.csv',
-        'TABLE9': 'data-source/ca_ge44_table_tableau09.csv',
-        'TABLE10': 'data-source/ca_ge44_table_tableau10.csv',
-        'TABLE11': 'data-source/ca_ge44_table_tableau11.csv',
-        'TABLE12': 'data-source/ca_ge44_table_tableau12.csv',
-    }
-}
+# CA_GE_DATAFILES = {
+#     44: {
+#         'TABLE1': 'data-source/ca_ge44_table_tableau01.csv',
+#         'TABLE2': 'data-source/ca_ge44_table_tableau02.csv',
+#         'TABLE3': 'data-source/ca_ge44_table_tableau03.csv',
+#         'TABLE4': 'data-source/ca_ge44_table_tableau04.csv',
+#         'TABLE5': 'data-source/ca_ge44_table_tableau05.csv',
+#         'TABLE6': 'data-source/ca_ge44_table_tableau06.csv',
+#         'TABLE7': 'data-source/ca_ge44_table_tableau07.csv',
+#         'TABLE8': 'data-source/ca_ge44_table_tableau08.csv',
+#         'TABLE9': 'data-source/ca_ge44_table_tableau09.csv',
+#         'TABLE10': 'data-source/ca_ge44_table_tableau10.csv',
+#         'TABLE11': 'data-source/ca_ge44_table_tableau11.csv',
+#         'TABLE12': 'data-source/ca_ge44_table_tableau12.csv',
+#     }
+# }
 
-CA_ELECTIONS_RESULTS_OUTPUT = {
-    '45': 'data/ca_ge45_results.json',
-    '44': 'data/ca_ge44_results.json'
-}
-CA_DISTRICTS_OUTPUT = "data/ca_ge{election['id']}_results.json"
+# CA_ELECTIONS_RESULTS_OUTPUT = {
+#     '45': 'data/ca_ge45_results.json',
+#     '44': 'data/ca_ge44_results.json'
+# }
+CA_DISTRICTS_OUTPUT = "data/ca_ge{election['id']}_district_results.json"
 
 CA_PARTIES_MAP_SHORT_SOURCE = "data-source/ca_parties_map_f96.csv"
 CA_PARTIES_MAP_SOURCE = "data-source/ca_parties_map.csv"
