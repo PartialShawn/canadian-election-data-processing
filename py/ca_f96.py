@@ -7,6 +7,8 @@
 
 from __init__ import *
 import csv, json
+import pandas as pd
+import numpy as np
 
 # Table CSV file Columns
 
@@ -37,7 +39,164 @@ T12_CAND_MAJ_PER = 9
 
 with open(CA_PARTIES_MAP_SHORT_JSON_FILENAME) as f: party_map = json.load(f)
 
-def parse_candidates(election: dict, districts: dict):
+
+def agg_party_data(districts : dict, df_data:dict, party_stats:dict) -> None:
+    """ Aggregate party data for pd.DataFrame and to write out
+    
+    Parameters
+    ----------
+    districts : dict
+        Dictionary of district data
+    df_data : dict
+    party_stats : dict
+    """
+
+    for d in districts.values():
+        region = SGC_TO_ALPHA[d['num'][:2]]
+        ed_num = d['num']
+
+        for c in d['candidates']:
+            party = c['party']
+
+            if party not in party_stats['ca']:
+                party_stats['ca'][party] = {'elected': list()}
+            party_stats['ca'][party]['elected'].append(ed_num)
+            df_data['ed'].append(ed_num)
+            df_data['region'].append(region)
+            df_data['party'].append(party)
+            df_data['ballots'].append(c['ballots'])
+            df_data['per_ballots'].append(c['per_ballots'])
+            df_data['per_electors'].append(c['per_electors'])
+            df_data['per_pop'].append(c['per_pop'])
+
+            if region not in party_stats:
+                party_stats[region] = {}
+            if party not in party_stats[region]:
+                party_stats[region][party] = {'elected': list()}
+            party_stats[region][party]['elected'].append(ed_num)
+
+    return df_data, party_stats
+
+
+def cal_agg_party_data(df:pd.DataFrame, grouping:list) -> pd.DataFrameGroupBy:
+    return df.groupby(grouping).agg(
+        pb_min=('per_ballots','min'),
+        pb_max=('per_ballots', 'max'),
+        pb_mean=('per_ballots', 'mean'),
+        pb_median=('per_ballots', 'median'),
+        pb_25=('per_ballots', lambda x: calc_percentile(x, 25)),
+        pb_50=('per_ballots', lambda x: calc_percentile(x, 50)),
+        pb_75=('per_ballots', lambda x: calc_percentile(x, 75)),
+
+        pe_min=('per_electors','min'),
+        pe_max=('per_electors', 'max'),
+        pe_mean=('per_electors', 'mean'),
+        pe_median=('per_electors', 'median'),
+        pe_25=('per_electors', lambda x: calc_percentile(x, 25)),
+        pe_50=('per_electors', lambda x: calc_percentile(x, 50)),
+        pe_75=('per_electors', lambda x: calc_percentile(x, 75)),
+
+        pp_min=('per_pop','min'),
+        pp_max=('per_pop', 'max'),
+        pp_mean=('per_pop', 'mean'),
+        pp_median=('per_pop', 'median'),
+        pp_50=('per_pop', lambda x: calc_percentile(x, 50)),
+        pp_25=('per_pop', lambda x: calc_percentile(x, 25)),
+        pp_75=('per_pop', lambda x: calc_percentile(x, 75)),
+    )
+
+def calc_percentile(group:list, percentile:int) -> float:
+    """ Calculate percentile, used for pandas agg
+    """
+    return np.percentile(group, percentile)
+
+
+
+def calc_party_stats(df_data: dict) -> dict:
+    """ Calculate party stats using pandas.
+
+    Parameters
+    ----------
+    df_data : dict
+        Data formatted for pd.DataFrame
+    
+    Returns
+    _______
+    data : dict
+        Party stats for writing out
+        
+    """
+    data = []
+    df = pd.DataFrame(df_data)
+
+    agg_party = cal_agg_party_data(df=df, grouping=['party'])
+    agg_region_party = cal_agg_party_data(df=df, grouping=['region', 'party'])
+    for group,a in agg_party.iterrows():
+        insert_agg_summary(r='ca', p=group[1], a=a, data=data)
+    for group,a in agg_region_party.iterrows():
+        insert_agg_summary(r=group[0], p=group[1], a=a, data=data)
+
+    return data
+
+
+
+def finalize_data(districts: dict) -> dict:
+    """ Finalized the district info
+
+    For each district:
+    - Sort candidates by votes (highest first)
+    - Save statistics information for pd.dataframe
+
+    Parameters
+    ----------
+    districts : dict
+        A dict of all districts
+    data : dict
+        Stats formatted for pd.dataframe
+    
+    Return
+    ------
+    stats : dict
+        Stats to be saved out as a data file
+    """
+    party_stats = { 'ca':{} }
+    df_data = { 'ed': [], 'region': [], 'party': [], 'ballots': [], 'per_ballots': [], 'per_electors': [], 'per_pop': [] }
+
+    agg_party_data(districts=districts, party_stats=party_stats, df_data=df_data)
+    calc_party_stats(party_stats=party_stats, df_data=df_data)
+
+    return party_stats
+
+
+
+def insert_agg_summary(r:str, p:str, a:list, data:dict):
+    data[r][p]['pb_min']  = round(float(a['pb_min']), 1)
+    data[r][p]['pb_max']  = round(float(a['pb_max']), 1)
+    data[r][p]['pb_mean'] = round(float(a['pb_mean']), 1)
+    data[r][p]['pb_median']=round(float(a['pb_median']), 1)
+    data[r][p]['pb_25']   = round(float(a['pb_25']), 1)
+    data[r][p]['pb_50']   = round(float(a['pb_50']), 1)
+    data[r][p]['pb_75']   = round(float(a['pb_75']), 1)
+
+    data[r][p]['pe_min']  = round(float(a['pe_min']), 1)
+    data[r][p]['pe_max']  = round(float(a['pe_max']), 1)
+    data[r][p]['pe_mean'] = round(float(a['pe_mean']), 1)
+    data[r][p]['pe_median']=round(float(a['pe_median']), 1)
+    data[r][p]['pe_25']   = round(float(a['pe_25']), 1)
+    data[r][p]['pe_50']   = round(float(a['pe_50']), 1)
+    data[r][p]['pe_75']   = round(float(a['pe_75']), 1)
+
+    data[r][p]['pp_min']  = round(float(a['pp_min']), 1)
+    data[r][p]['pp_max']  = round(float(a['pp_max']), 1)
+    data[r][p]['pp_mean'] = round(float(a['pp_mean']), 1)
+    data[r][p]['pp_median']=round(float(a['pp_median']), 1)
+    data[r][p]['pp_50']   = round(float(a['pp_50']), 1)
+    data[r][p]['pp_25']   = round(float(a['pp_25']), 1)
+    data[r][p]['pp_75']   = round(float(a['pp_75']), 1)
+
+
+
+def parse_candidates(election: dict, districts: dict) -> None:
     """ Parse table 12 to add candidate results to district data.
         
     Parameters
@@ -52,8 +211,6 @@ def parse_candidates(election: dict, districts: dict):
     file = open(election['sources']['table12'], encoding=election['encoding'])
     election = csv.reader(file)
     next(election) # skip headers
-    count = 0
-    parties = set()
 
     for candidate in election:
 
@@ -98,8 +255,8 @@ def parse_candidates(election: dict, districts: dict):
         districts[candidate[T12_ED_NUM]]['candidates'].append({
             'name': cand_name,
             'party': cand_party,
-            'ballots': candidate[T12_CAND_VOTES],
-            'per_ballots': candidate[T12_CAND_PER],
+            'ballots': int(candidate[T12_CAND_VOTES]),
+            'per_ballots': float(candidate[T12_CAND_PER]),
             'per_electors': round(int(candidate[T12_CAND_VOTES])/int(districts[candidate[T12_ED_NUM]]['electors'])*100, 2),
             'per_pop': round(int(candidate[T12_CAND_VOTES])/int(districts[candidate[T12_ED_NUM]]['pop'])*100, 2),
             'elected': elected,
@@ -112,7 +269,7 @@ def parse_candidates(election: dict, districts: dict):
 
 def parse_district_result(election: dict) -> dict:
     """ Parse table 11 to get district data, creates dict.
-    Also creates an empty candidates entry for each district.
+    Also creates an empty candidates field for each district.
     
     Parameters
     ----------
@@ -121,8 +278,10 @@ def parse_district_result(election: dict) -> dict:
 
     Returns
     -------
-    dict
+    distrcits : dict
         A newly created dict of districts.
+    stats : dict
+        A newly created dict for regions of elected reps by party
     """
 
     global party_map
@@ -196,8 +355,9 @@ def parse_election(election: dict):
     print(' - processed',len(districts),'districts')
     parse_candidates(election, districts)
     print(' - processed candidates')
+    stats = calc_party_stats(districts)
 
-    return districts
+    return districts, stats
 
 
 
@@ -207,5 +367,14 @@ def debug():
     print()
     for election in CA_GE_ELECTIONS.values():
         print('Processing election',election['id'])
-        if election['format'] == 'f96': parse_election(election)    
-# debug()
+        if election['format'] == 'f96':
+            districts, stats = parse_election(election)
+
+            election_json = open(election['data']['districts'], 'w')
+            json.dump(districts, election_json, indent=2)
+            election_json.close()
+
+            election_json = open(election['data']['parties'], 'w')
+            json.dump(stats, election_json, indent=2)
+            election_json.close()
+debug()

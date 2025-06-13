@@ -55,11 +55,15 @@ F96 is the format for elections results using since 1996 in elections and by-ele
 - Total ballots
 
 
-Table 6: Distribution of valid votes under Special Voting Rules
-Table 7: Distribution of seats by political affiliation and sex
-Table 8: Number of valid votes by political affiliation
-Table 9: Percentage of valid votes by political affiliation
-Table 10: Number of candidates by percentage of valid votes received, by political affiliation
+## Table 6: Distribution of valid votes under Special Voting Rules
+
+## Table 7: Distribution of seats by political affiliation and sex
+
+## Table 8: Number of valid votes by political affiliation
+
+## Table 9: Percentage of valid votes by political affiliation
+
+## Table 10: Number of candidates by percentage of valid votes received, by political affiliation
 
 
 ## Table 11 Columns
