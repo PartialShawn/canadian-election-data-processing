@@ -1,7 +1,9 @@
 ca_parties_map.json
 ca_parties.json
 ca_districts_index.json
-ca_ge??_results.json
+ca_ge??_parties.json
+ca_ge??_districs.json
+data/
 
 
 # Byte-compiled / optimized / DLL files
