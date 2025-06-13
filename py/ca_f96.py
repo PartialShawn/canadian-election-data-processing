@@ -78,7 +78,8 @@ def agg_party_data(districts : dict, df_data:dict, party_stats:dict) -> None:
     return df_data, party_stats
 
 
-def cal_agg_party_data(df:pd.DataFrame, grouping:list) -> pd.DataFrameGroupBy:
+
+def calc_agg_party_data(df:pd.DataFrame, grouping:list) -> pd.DataFrame:
     return df.groupby(grouping).agg(
         pb_min=('per_ballots','min'),
         pb_max=('per_ballots', 'max'),
@@ -105,6 +106,8 @@ def cal_agg_party_data(df:pd.DataFrame, grouping:list) -> pd.DataFrameGroupBy:
         pp_75=('per_pop', lambda x: calc_percentile(x, 75)),
     )
 
+
+
 def calc_percentile(group:list, percentile:int) -> float:
     """ Calculate percentile, used for pandas agg
     """
@@ -112,7 +115,7 @@ def calc_percentile(group:list, percentile:int) -> float:
 
 
 
-def calc_party_stats(df_data: dict) -> dict:
+def calc_party_stats(df_data: dict, party_stats: dict) -> None:
     """ Calculate party stats using pandas.
 
     Parameters
@@ -122,21 +125,18 @@ def calc_party_stats(df_data: dict) -> dict:
     
     Returns
     _______
-    data : dict
+    party_data : dict
         Party stats for writing out
         
     """
-    data = []
     df = pd.DataFrame(df_data)
 
-    agg_party = cal_agg_party_data(df=df, grouping=['party'])
-    agg_region_party = cal_agg_party_data(df=df, grouping=['region', 'party'])
+    agg_party = calc_agg_party_data(df=df, grouping=['party'])
+    agg_region_party = calc_agg_party_data(df=df, grouping=['region', 'party'])
     for group,a in agg_party.iterrows():
-        insert_agg_summary(r='ca', p=group[1], a=a, data=data)
+        insert_agg_summary(r='ca', p=group, a=a, data=party_stats)
     for group,a in agg_region_party.iterrows():
-        insert_agg_summary(r=group[0], p=group[1], a=a, data=data)
-
-    return data
+        insert_agg_summary(r=group[1], p=group[0], a=a, data=party_stats)
 
 
 
@@ -163,13 +163,16 @@ def finalize_data(districts: dict) -> dict:
     df_data = { 'ed': [], 'region': [], 'party': [], 'ballots': [], 'per_ballots': [], 'per_electors': [], 'per_pop': [] }
 
     agg_party_data(districts=districts, party_stats=party_stats, df_data=df_data)
-    calc_party_stats(party_stats=party_stats, df_data=df_data)
+    calc_party_stats(df_data=df_data, party_stats=party_stats)
 
     return party_stats
 
 
 
 def insert_agg_summary(r:str, p:str, a:list, data:dict):
+    if r not in data: data[r] = {}
+    if p not in data[r]: data[r][p] = {}
+    
     data[r][p]['pb_min']  = round(float(a['pb_min']), 1)
     data[r][p]['pb_max']  = round(float(a['pb_max']), 1)
     data[r][p]['pb_mean'] = round(float(a['pb_mean']), 1)
@@ -355,9 +358,9 @@ def parse_election(election: dict):
     print(' - processed',len(districts),'districts')
     parse_candidates(election, districts)
     print(' - processed candidates')
-    stats = calc_party_stats(districts)
+    party_stats = finalize_data(districts)
 
-    return districts, stats
+    return districts, party_stats
 
 
 
@@ -368,13 +371,13 @@ def debug():
     for election in CA_GE_ELECTIONS.values():
         print('Processing election',election['id'])
         if election['format'] == 'f96':
-            districts, stats = parse_election(election)
+            districts, party_stats = parse_election(election)
 
             election_json = open(election['data']['districts'], 'w')
             json.dump(districts, election_json, indent=2)
             election_json.close()
 
             election_json = open(election['data']['parties'], 'w')
-            json.dump(stats, election_json, indent=2)
+            json.dump(party_stats, election_json, indent=2)
             election_json.close()
 debug()
