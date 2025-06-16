@@ -12,6 +12,7 @@ import os
 
 
 ZOLA_DISTRICT_TEMPLATE = """+++
+# File created by 'generate_electoral_district_zola_markdown.py'
 title = "$district_name"
 [extra]
 election_id = $election_id
@@ -21,6 +22,7 @@ district_name = "$district_name"
 """
 
 ZOLA_ELECTION_TEMPLATE = """+++
+# File created by 'generate_electoral_district_zola_markdown.py'
 title = '$election_title'
 page_template = 'ca_election_district.html'
 template = 'ca_election_overview.html'
@@ -60,10 +62,9 @@ def generate_election_files(election: dict):
 
     print(' - Created default file')
     
-    election_results_json = open(election['data']['results'], 'r')
+    election_results_json = open(election['data']['districts'], 'r')
     districts = json.load(election_results_json)
     election_results_json.close()
-
     for id,district in districts.items():
         district_file = open(file_path.substitute(section=ZOLA_FEDERAL_ELECTIONS_PATH, election_id=election['id'], district_id=id), 'w', encoding='utf8')
         district_file.write(district_content.substitute(election_id=election['id'], district_id=id, district_name=district['name']))
