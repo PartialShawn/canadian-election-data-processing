@@ -150,4 +150,12 @@ def parse_election(election: dict):
     print(" - parse preliminary results")
     districts = parse_candidates(election)
     return districts
-# parse_election(CA_GE_ELECTIONS['45'])
+
+
+if __name__ == "__main__":
+    """ Debug code
+    """
+    print()
+    print("Debug")
+    print()
+    parse_election(CA_GE_ELECTIONS['45'])

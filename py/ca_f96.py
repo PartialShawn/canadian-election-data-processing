@@ -377,7 +377,10 @@ def parse_election(election: dict) -> tuple[dict, dict]:
 
 
 
-def debug():
+
+if __name__ == "__main__":
+    """ Debug code
+    """
     print()
     print("Debug")
     print()
@@ -393,4 +396,3 @@ def debug():
             election_json = open(election['data']['parties'], 'w')
             json.dump(party_stats, election_json, indent=2)
             election_json.close()
-# debug()
