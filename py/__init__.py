@@ -144,59 +144,38 @@ CA_GE_ELECTIONS = {
             'districts': 'data/ca_ge40_districts.json',
             'parties': 'data/ca_ge40_parties.json'
         }
+    },
+    '39': {
+        'id': '39',
+        'format': 'ge39',
+        'encoding': 'cp1252',
+        'type': 'official',
+        'sources': {
+            'table1': 'data-source/ca_ge39_table_tableau01.csv',
+            'table2': 'data-source/ca_ge39_table_tableau02.csv',
+            'table3': 'data-source/ca_ge39_table_tableau03.csv',
+            'table4': 'data-source/ca_ge39_table_tableau04.csv',
+            'table5': 'data-source/ca_ge39_table_tableau05.csv',
+            'table6': 'data-source/ca_ge39_table_tableau06.csv',
+            'table7': 'data-source/ca_ge39_table_tableau07.csv',
+            'table8': 'data-source/ca_ge39_table_tableau08.csv',
+            'table9': 'data-source/ca_ge39_table_tableau09.csv',
+            'table10': 'data-source/ca_ge39_table_tableau10.csv',
+            'table11': 'data-source/ca_ge39_table_tableau11.csv',
+            'table12': 'data-source/ca_ge39_table_tableau12.csv',
+        },
+        'data': {
+            'results': 'data/ca_ge39_results.json',
+            'districts': 'data/ca_ge39_districts.json',
+            'parties': 'data/ca_ge39_parties.json'
+        }
     }
-    # '39': {
-    #     'id': '39',
-    #     'format': 'f96.0',
-    #     'encoding': 'cp1252',
-    #     'type': 'official',
-    #     'sources': {
-    #         'table1': 'data-source/ca_ge39_table_tableau01.csv',
-    #         'table2': 'data-source/ca_ge39_table_tableau02.csv',
-    #         'table3': 'data-source/ca_ge39_table_tableau03.csv',
-    #         'table4': 'data-source/ca_ge39_table_tableau04.csv',
-    #         'table5': 'data-source/ca_ge39_table_tableau05.csv',
-    #         'table6': 'data-source/ca_ge39_table_tableau06.csv',
-    #         'table7': 'data-source/ca_ge39_table_tableau07.csv',
-    #         'table8': 'data-source/ca_ge39_table_tableau08.csv',
-    #         'table9': 'data-source/ca_ge39_table_tableau09.csv',
-    #         'table10': 'data-source/ca_ge39_table_tableau10.csv',
-    #         'table11': 'data-source/ca_ge39_table_tableau11.csv',
-    #         'table12': 'data-source/ca_ge39_table_tableau12.csv',
-    #     },
-    #     'data': {
-    #         'results': 'data/ca_ge39_results.json',
-    #         'districts': 'data/ca_ge39_districts.json',
-    #         'parties': 'data/ca_ge39_parties.json'
-    #     }
-    # }
 }
 
 
 # Elections Canada Files
 CA_GE_PRELIMINARY_ELECTION_NUMBER = '45'
 CA_GE_PRELIMINARY = "data-source/ca_ge45_preliminary-2025-05-09.tsv"
-# CA_GE_DATAFILES = {
-#     44: {
-#         'TABLE1': 'data-source/ca_ge44_table_tableau01.csv',
-#         'TABLE2': 'data-source/ca_ge44_table_tableau02.csv',
-#         'TABLE3': 'data-source/ca_ge44_table_tableau03.csv',
-#         'TABLE4': 'data-source/ca_ge44_table_tableau04.csv',
-#         'TABLE5': 'data-source/ca_ge44_table_tableau05.csv',
-#         'TABLE6': 'data-source/ca_ge44_table_tableau06.csv',
-#         'TABLE7': 'data-source/ca_ge44_table_tableau07.csv',
-#         'TABLE8': 'data-source/ca_ge44_table_tableau08.csv',
-#         'TABLE9': 'data-source/ca_ge44_table_tableau09.csv',
-#         'TABLE10': 'data-source/ca_ge44_table_tableau10.csv',
-#         'TABLE11': 'data-source/ca_ge44_table_tableau11.csv',
-#         'TABLE12': 'data-source/ca_ge44_table_tableau12.csv',
-#     }
-# }
-
-# CA_ELECTIONS_RESULTS_OUTPUT = {
-#     '45': 'data/ca_ge45_results.json',
-#     '44': 'data/ca_ge44_results.json'
-# }
 CA_DISTRICTS_OUTPUT = "data/ca_ge{election['id']}_district_results.json"
 
 CA_PARTIES_MAP_SHORT_SOURCE = "data-source/ca_parties_map_f96.csv"

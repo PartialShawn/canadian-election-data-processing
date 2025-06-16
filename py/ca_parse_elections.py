@@ -22,6 +22,7 @@ def parse_all_elections():
         else:
             print(" - ERROR: invalid type")
             districts = None
+            continue
 
         print(" - writing districts JSON file")
         election_json = open(election['data']['districts'], 'w')
