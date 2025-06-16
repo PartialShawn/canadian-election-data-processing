@@ -92,7 +92,7 @@ def parse_candidates(election: dict) -> dict:
 
     # Process all lines. Skip 2 header lines, skip footnotes (at end).
     print(" - loading preliminary results")
-    prelim_file = open(CA_GE_PRELIMINARY, encoding='utf8')
+    prelim_file = open(election['sources']['preliminary'], encoding='utf8')
 
     table_reader = csv.reader(prelim_file, delimiter='\t')
     next(table_reader) # skip the headers

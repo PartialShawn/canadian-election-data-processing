@@ -16,7 +16,7 @@ import csv, json
 
 districts_index = {} # All districts with district number as key
 
-with open('data-source/ca_ge44_preliminary-2025-02-05.tsv', encoding='utf8') as prelim:
+with open('data-source/ca_ge45_preliminary_candidates_2025-06-13.tsv', encoding='utf8') as prelim:
     table_reader = csv.reader(prelim, delimiter='\t')
     next(table_reader)  # skip the headers
     next(table_reader)

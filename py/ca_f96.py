@@ -58,9 +58,9 @@ def agg_party_data(districts : dict, df_data:dict, party_stats:dict) -> None:
         for c in d['candidates']:
             party = c['party']
 
-            if party not in party_stats['ca']:
-                party_stats['ca'][party] = {'elected': list()}
-            party_stats['ca'][party]['elected'].append(ed_num)
+            if party not in party_stats['CA']:
+                party_stats['CA'][party] = {'elected': list()}
+            party_stats['CA'][party]['elected'].append(ed_num)
             df_data['ed'].append(ed_num)
             df_data['region'].append(region)
             df_data['party'].append(party)
@@ -74,8 +74,6 @@ def agg_party_data(districts : dict, df_data:dict, party_stats:dict) -> None:
             if party not in party_stats[region]:
                 party_stats[region][party] = {'elected': list()}
             party_stats[region][party]['elected'].append(ed_num)
-
-    return df_data, party_stats
 
 
 
@@ -134,7 +132,7 @@ def calc_party_stats(df_data: dict, party_stats: dict) -> None:
     agg_party = calc_agg_party_data(df=df, grouping=['party'])
     agg_region_party = calc_agg_party_data(df=df, grouping=['region', 'party'])
     for group,a in agg_party.iterrows():
-        insert_agg_summary(r='ca', p=group, a=a, data=party_stats)
+        insert_agg_summary(r='CA', p=group, a=a, data=party_stats)
     for group,a in agg_region_party.iterrows():
         insert_agg_summary(r=group[1], p=group[0], a=a, data=party_stats)
 
@@ -159,7 +157,7 @@ def finalize_data(districts: dict) -> dict:
     stats : dict
         Stats to be saved out as a data file
     """
-    party_stats = { 'ca':{} }
+    party_stats = { 'CA':{} }
     df_data = { 'ed': [], 'region': [], 'party': [], 'ballots': [], 'per_ballots': [], 'per_electors': [], 'per_pop': [] }
 
     agg_party_data(districts=districts, party_stats=party_stats, df_data=df_data)
@@ -352,7 +350,22 @@ def parse_district_result(election: dict) -> dict:
 
 
 
-def parse_election(election: dict):
+def parse_election(election: dict) -> tuple[dict, dict]:
+    """ Parses an election.
+
+    Parameters
+    ----------
+    election : dict
+        Election info from __init__.CA_GE_ELECTIONS
+
+    Returns
+    -------
+    districts : dict
+        Dictionary of district data
+    party_stats : dict
+        Dictionary of party statistics
+
+    """
     print(" - parse official results")
     districts = parse_district_result(election)
     print(' - processed',len(districts),'districts')
@@ -380,4 +393,4 @@ def debug():
             election_json = open(election['data']['parties'], 'w')
             json.dump(party_stats, election_json, indent=2)
             election_json.close()
-debug()
+# debug()

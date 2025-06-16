@@ -12,7 +12,7 @@ CA_GE_ELECTIONS = {
         'encoding': 'utf8',
         'type': 'preliminary',
         'sources': {
-            'preliminary': 'data-source/ca_ge45_preliminary-2025-05-09.tsv'
+            'preliminary': 'data-source/ca_ge45_preliminary_candidates_2025-06-13.tsv'
         },
         'data': {
             'results': 'data/ca_ge45_results.json',
