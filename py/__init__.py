@@ -14,11 +14,6 @@ CA_GE_ELECTIONS = {
         'sources': {
             'preliminary': 'data-source/ca_ge45_preliminary_candidates_2025-06-13.tsv'
         },
-        'data': {
-            'results': 'data/ca_ge45_results.json',
-            'districts': 'data/ca_ge45_districts.json',
-            'parties': 'data/ca_ge45_parties.json'
-        }
     },
     '44': {
         'id': '44',
@@ -39,11 +34,6 @@ CA_GE_ELECTIONS = {
             'table11': 'data-source/ca_ge44_table_tableau11.csv',
             'table12': 'data-source/ca_ge44_table_tableau12.csv',
         },
-        'data': {
-            'results': 'data/ca_ge44_results.json',
-            'districts': 'data/ca_ge44_districts.json',
-            'parties': 'data/ca_ge44_parties.json'
-        }
     },
     '43': {
         'id': '43',
@@ -64,11 +54,6 @@ CA_GE_ELECTIONS = {
             'table11': 'data-source/ca_ge43_table_tableau11.csv',
             'table12': 'data-source/ca_ge43_table_tableau12.csv',
         },
-        'data': {
-            'results': 'data/ca_ge43_results.json',
-            'districts': 'data/ca_ge43_districts.json',
-            'parties': 'data/ca_ge43_parties.json'
-        }
     },
     '42': {
         'id': '42',
@@ -88,11 +73,6 @@ CA_GE_ELECTIONS = {
             'table10': 'data-source/ca_ge42_table_tableau10.csv',
             'table11': 'data-source/ca_ge42_table_tableau11.csv',
             'table12': 'data-source/ca_ge42_table_tableau12.csv',
-        },
-        'data': {
-            'results': 'data/ca_ge42_results.json',
-            'districts': 'data/ca_ge42_districts.json',
-            'parties': 'data/ca_ge42_parties.json'
         }
     },
     '41': {
@@ -113,11 +93,6 @@ CA_GE_ELECTIONS = {
             'table10': 'data-source/ca_ge41_table_tableau10.csv',
             'table11': 'data-source/ca_ge41_table_tableau11.csv',
             'table12': 'data-source/ca_ge41_table_tableau12.csv',
-        },
-        'data': {
-            'results': 'data/ca_ge41_results.json',
-            'districts': 'data/ca_ge41_districts.json',
-            'parties': 'data/ca_ge41_parties.json'
         }
     },
     '40': {
@@ -138,11 +113,6 @@ CA_GE_ELECTIONS = {
             'table10': 'data-source/ca_ge40_table_tableau10.csv',
             'table11': 'data-source/ca_ge40_table_tableau11.csv',
             'table12': 'data-source/ca_ge40_table_tableau12.csv',
-        },
-        'data': {
-            'results': 'data/ca_ge40_results.json',
-            'districts': 'data/ca_ge40_districts.json',
-            'parties': 'data/ca_ge40_parties.json'
         }
     },
     '39': {
@@ -163,11 +133,6 @@ CA_GE_ELECTIONS = {
             'table10': 'data-source/ca_ge39_table_tableau10.csv',
             'table11': 'data-source/ca_ge39_table_tableau11.csv',
             'table12': 'data-source/ca_ge39_table_tableau12.csv',
-        },
-        'data': {
-            'results': 'data/ca_ge39_results.json',
-            'districts': 'data/ca_ge39_districts.json',
-            'parties': 'data/ca_ge39_parties.json'
         }
     }
 }
@@ -194,28 +159,10 @@ SGC_TO_ALPHA = { '10': 'NL', '11': 'PE', '12': 'NS', '13': 'NB', '24': 'QC', '35
 ALPHA_TO_SGC = {'NL': '10', 'PE': '11', 'NS': '12', 'NB': '13', 'QC': '24', 'ON': '35', 'MB': '46', 'SK': '47', 'AB': '48', 'BC': '59', 'YK': '60', 'NT': '61', 'NU': '62'}
 
 
-
-
 #
 # Elections Canada data file column numbers
 #
 
-
-# Preliminary TSV columns
-PRELIM_ED_NUM = 0  # Column 2 is electoral district number
-PRELIM_ED_NAME_EN = 1 # Column 1 is electoral district name
-PRELIM_ED_NAME_FR = 2
-PRELIM_ED_RESULT_TYPE_EN = 3
-PRELIM_ED_RESULT_TYPE_FR = 4
-PRELIM_CAN_LAST = 5
-PRELIM_CAN_MIDDLE = 6
-PRELIM_CAN_FIRST = 7
-PRELIM_CAN_PARTY_EN = 8
-PRELIM_CAN_PARTY_FR = 9
-PRELIM_CAN_BALLOTS = 10
-PRELIM_CAN_PERCENT_BALLOTS = 11
-PRELIM_ED_REJECTED_BALLOTS = 12
-PRELIM_ED_TOTAL_BALLOTS = 13
 
 # parties.csv columns
 PARTIES_ID = 0
