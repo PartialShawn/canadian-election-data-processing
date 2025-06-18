@@ -66,10 +66,16 @@ class ElectionResults(ABC):
                 self.df_data['ed'].append(ed_num)
                 self.df_data['region'].append(region)
                 self.df_data['party'].append(party)
-                self.df_data['ballots'].append(c['ballots'])
-                self.df_data['per_ballots'].append(c['per_ballots'])
-                self.df_data['per_electors'].append(c['per_electors'])
-                self.df_data['per_pop'].append(c['per_pop'])
+                self.df_data['ballots'].append(float(c['ballots']))
+                self.df_data['per_ballots'].append(float(c['per_ballots']))
+                if c['per_electors'] is not None:
+                    self.df_data['per_electors'].append(float(c['per_electors']))
+                else:
+                    self.df_data['per_electors'].append(None)
+                if c['per_pop'] is not None:
+                    self.df_data['per_pop'].append(float(c['per_pop']))
+                else:
+                    self.df_data['per_pop'].append(None)
 
                 if region not in self.party_stats:
                     self.party_stats[region] = {}
@@ -79,6 +85,7 @@ class ElectionResults(ABC):
 
     @staticmethod
     def calc_agg_party_data(df:pd.DataFrame, grouping:list) -> pd.DataFrame:
+        # Overridden in CaPrelim
         return df.groupby(grouping).agg(
             pb_min=('per_ballots','min'),
             pb_max=('per_ballots', 'max'),
@@ -141,6 +148,8 @@ class ElectionResults(ABC):
 
     @classmethod
     def insert_agg_summary(self, r:str, p:str, a:list):
+        # Overridden in CaPrelim
+
         if r not in self.party_stats: self.party_stats[r] = {}
         if p not in self.party_stats[r]: self.party_stats[r][p] = {}
         # TODO: Skip stuff not in preliminary
@@ -170,11 +179,12 @@ class ElectionResults(ABC):
 
     @classmethod
     def write_files(self):
-        election_json = open('ca_ge'+self.election['id']+'_districts.json', 'w')
+        print(" - Writting files for GE", self.election['id'])
+        election_json = open('data/ca_ge'+self.election['id']+'_districts.json', 'w')
         json.dump(self.districts, election_json, indent=2)
         election_json.close()
 
-        party_json = open('ca_ge'+self.election['id']+'_parties.json', 'w')
+        party_json = open('data/ca_ge'+self.election['id']+'_parties.json', 'w')
         json.dump(self.party_stats, party_json, indent=2)
         party_json.close()
         

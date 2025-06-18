@@ -6,6 +6,7 @@
 #
 
 from ElectionResultsClass import *
+import csv
 
 with open(CA_PARTIES_MAP_SHORT_JSON_FILENAME) as f: party_map = json.load(f)
 

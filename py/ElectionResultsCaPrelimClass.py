@@ -6,6 +6,7 @@
 #
 
 from ElectionResultsClass import *
+import csv
 
 with open(CA_PARTIES_MAP_SHORT_JSON_FILENAME) as f: party_map = json.load(f)
 
@@ -26,6 +27,34 @@ PRELIM_ED_TOTAL_BALLOTS = 13
 
 
 class ElectionResultsCaPrelim(ElectionResults):
+
+    @staticmethod
+    def calc_agg_party_data(df:pd.DataFrame, grouping:list) -> pd.DataFrame:
+        return df.groupby(grouping).agg(
+            pb_min=('per_ballots','min'),
+            pb_max=('per_ballots', 'max'),
+            pb_mean=('per_ballots', 'mean'),
+            pb_median=('per_ballots', 'median'),
+            pb_25=('per_ballots', lambda x: ElectionResults.calc_percentile(x, 25)),
+            pb_50=('per_ballots', lambda x: ElectionResults.calc_percentile(x, 50)),
+            pb_75=('per_ballots', lambda x: ElectionResults.calc_percentile(x, 75))
+
+            # pe_min=('per_electors','min'),
+            # pe_max=('per_electors', 'max'),
+            # pe_mean=('per_electors', 'mean'),
+            # pe_median=('per_electors', 'median'),
+            # pe_25=('per_electors', lambda x: ElectionResults.calc_percentile(x, 25)),
+            # pe_50=('per_electors', lambda x: ElectionResults.calc_percentile(x, 50)),
+            # pe_75=('per_electors', lambda x: ElectionResults.calc_percentile(x, 75)),
+
+            # pp_min=('per_pop','min'),
+            # pp_max=('per_pop', 'max'),
+            # pp_mean=('per_pop', 'mean'),
+            # pp_median=('per_pop', 'median'),
+            # pp_50=('per_pop', lambda x: ElectionResults.calc_percentile(x, 50)),
+            # pp_25=('per_pop', lambda x: ElectionResults.calc_percentile(x, 25)),
+            # pp_75=('per_pop', lambda x: ElectionResults.calc_percentile(x, 75)),
+        )
     
     @staticmethod
     def district_init(district: dict) -> dict:
@@ -88,12 +117,37 @@ class ElectionResultsCaPrelim(ElectionResults):
                 candidate['elected'] = True
 
     @classmethod
+    def insert_agg_summary(self, r:str, p:str, a:list):
+        if r not in self.party_stats: self.party_stats[r] = {}
+        if p not in self.party_stats[r]: self.party_stats[r][p] = {}
+        # TODO: Skip stuff not in preliminary
+        self.party_stats[r][p]['pb_min']  = round(float(a['pb_min']), 1)
+        self.party_stats[r][p]['pb_max']  = round(float(a['pb_max']), 1)
+        self.party_stats[r][p]['pb_mean'] = round(float(a['pb_mean']), 1)
+        self.party_stats[r][p]['pb_median']=round(float(a['pb_median']), 1)
+        self.party_stats[r][p]['pb_25']   = round(float(a['pb_25']), 1)
+        self.party_stats[r][p]['pb_50']   = round(float(a['pb_50']), 1)
+        self.party_stats[r][p]['pb_75']   = round(float(a['pb_75']), 1)
+
+        # self.party_stats[r][p]['pe_min']  = round(float(a['pe_min']), 1)
+        # self.party_stats[r][p]['pe_max']  = round(float(a['pe_max']), 1)
+        # self.party_stats[r][p]['pe_mean'] = round(float(a['pe_mean']), 1)
+        # self.party_stats[r][p]['pe_median']=round(float(a['pe_median']), 1)
+        # self.party_stats[r][p]['pe_25']   = round(float(a['pe_25']), 1)
+        # self.party_stats[r][p]['pe_50']   = round(float(a['pe_50']), 1)
+        # self.party_stats[r][p]['pe_75']   = round(float(a['pe_75']), 1)
+
+        # self.party_stats[r][p]['pp_min']  = round(float(a['pp_min']), 1)
+        # self.party_stats[r][p]['pp_max']  = round(float(a['pp_max']), 1)
+        # self.party_stats[r][p]['pp_mean'] = round(float(a['pp_mean']), 1)
+        # self.party_stats[r][p]['pp_median']=round(float(a['pp_median']), 1)
+        # self.party_stats[r][p]['pp_50']   = round(float(a['pp_50']), 1)
+        # self.party_stats[r][p]['pp_25']   = round(float(a['pp_25']), 1)
+        # self.party_stats[r][p]['pp_75']   = round(float(a['pp_75']), 1)
+
+    @classmethod
     def parse(self) -> None:
-        print("1")
         self.parse_candidates()
-        print("2")
-        print(json.dumps(self.districts, indent=2))
-        print("3")
 
     @classmethod
     def parse_candidates(self) -> dict:
@@ -111,7 +165,7 @@ class ElectionResultsCaPrelim(ElectionResults):
 
         # Process all lines. Skip 2 header lines, skip footnotes (at end).
         print(" - loading preliminary results")
-        prelim_file = open(election['sources']['preliminary'], encoding='utf8')
+        prelim_file = open(self.election['sources']['preliminary'], encoding='utf8')
 
         table_reader = csv.reader(prelim_file, delimiter='\t')
         next(table_reader) # skip the headers
