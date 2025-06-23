@@ -134,6 +134,15 @@ CA_GE_ELECTIONS = {
             'table11': 'data-source/ca_ge39_table_tableau11.csv',
             'table12': 'data-source/ca_ge39_table_tableau12.csv',
         }
+    },
+    '01': {
+        'id': 1,
+        'format': 'Ca01',
+        'encoding': 'cp1252',
+        'type': 'official',
+        'sources': {
+            'candidates': 'data-source/ca_ge01.csv'
+        }
     }
 }
 
