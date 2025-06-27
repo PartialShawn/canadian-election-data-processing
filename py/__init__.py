@@ -136,9 +136,9 @@ CA_GE_ELECTIONS = {
         }
     },
     '01': {
-        'id': 1,
+        'id': '1',
         'format': 'Ca01',
-        'encoding': 'cp1252',
+        'encoding': 'latin-1',
         'type': 'official',
         'sources': {
             'candidates': 'data-source/ca_ge01.csv'

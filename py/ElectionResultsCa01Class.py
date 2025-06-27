@@ -25,6 +25,12 @@ CAN_ELECTED_COL = 12
 
 class ElectionResultsCa01(ElectionResults):
 
+    elections:dict = {}
+
+    @classmethod
+    def agg_party_data(self):
+        return
+    
     @staticmethod
     def calc_agg_party_data(df:pd.DataFrame, grouping:list) -> pd.DataFrame:
         return df.groupby(grouping).agg(
@@ -177,7 +183,6 @@ class ElectionResultsCa01(ElectionResults):
                 last_ed = candidate[RIDING_COL]
             
             elif candidate[CAN_BALLOTS_COL] != '' and candidate[CAN_BALLOTS_COL] != 'accl.' and candidate[CAN_BALLOTS_COL] != 'NULL':
-                print(candidate[CAN_BALLOTS_COL], 'skippable?')
 
                 if int(candidate[CAN_BALLOTS_COL]) > int(first[CAN_BALLOTS_COL]):
                     second = first
@@ -201,11 +206,17 @@ class ElectionResultsCa01(ElectionResults):
                 'elected': False,
                 'incumbent': False
             })
+            self.elections[candidate[PARL_COL]][candidate[RIDING_COL]]['candidates'] = self.districts[candidate[RIDING_COL]]['candidates']
         # Add winning candidate for the last district
         self.finalize_district(first=first, second=second)
         candidates_file.close()
         print(" - parsed",len(self.districts),"districts")
 
+    @classmethod
+    def write_files(self):
+        for e_num,data in self.elections:
+            print(" - Writing:", e_num)
+            super().write_files(e_num, data, party_stats={})
 
 if __name__ == "__main__":
     for election in CA_GE_ELECTIONS.values():

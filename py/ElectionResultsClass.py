@@ -178,14 +178,20 @@ class ElectionResults(ABC):
         self.party_stats[r][p]['pp_75']   = round(float(a['pp_75']), 1)
 
     @classmethod
-    def write_files(self):
-        print(" - Writting files for GE", self.election['id'])
-        election_json = open('data/ca_ge'+self.election['id']+'_districts.json', 'w')
-        json.dump(self.districts, election_json, indent=2)
+    def write_files(self, e_num = None, districts = None, party_stats = None):
+        if e_num == None and districts == None and party_stats == None:
+            e_num = self.election['id']
+            districts = self.districts
+            party_stats = self.party_stats
+        elif e_num == None or districts == None or party_stats == None:
+            raise ValueError
+        print(" - Writting files for GE", e_num)
+        election_json = open('data/ca_ge'+e_num+'_districts.json', 'w')
+        json.dump(districts, election_json, indent=2)
         election_json.close()
 
-        party_json = open('data/ca_ge'+self.election['id']+'_parties.json', 'w')
-        json.dump(self.party_stats, party_json, indent=2)
+        party_json = open('data/ca_ge'+e_num+'_parties.json', 'w')
+        json.dump(party_stats, party_json, indent=2)
         party_json.close()
         
 
